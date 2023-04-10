@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text('login'),
         centerTitle: true,
-        backgroundColor: HexColor("#EA5455"),
+        backgroundColor: HexColor("#1dbf73"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(children: [
               Image(
                 width: 200,
-                image: AssetImage('./lib/assets/padlock.png'),
+                image: AssetImage('./lib/assets/images/1.svg'),
               ),
               SizedBox(
                 height: 30,
