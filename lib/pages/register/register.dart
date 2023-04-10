@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:kafilmobile/pages/login/login.dart';
 
@@ -27,7 +28,7 @@ class _RegisterpageState extends State<Registerpage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Register'),
-        backgroundColor: HexColor("#EA54af"),
+        backgroundColor: HexColor("#00bf8b"),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -36,9 +37,12 @@ class _RegisterpageState extends State<Registerpage> {
             child: Expanded(
               child: Column(
                 children: [
-                  Image(
-                    width: 200,
-                    image: AssetImage('./lib/assets/userregisterpng.png'),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: SvgPicture.asset(
+                      "./lib/assets/images/register-now.svg",
+                      width: 300,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -227,7 +231,7 @@ class _RegisterpageState extends State<Registerpage> {
                               }
                             },
                             style: TextButton.styleFrom(
-                                backgroundColor: HexColor('#FB2576'),
+                                backgroundColor: HexColor('#00bf8b'),
                                 foregroundColor: Colors.white,
                                 padding: EdgeInsets.only(
                                     left: 50, right: 50, top: 20, bottom: 20),

@@ -6,6 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kafilmobile/pages/home/home.dart';
 import '../register/register.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -28,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text('login'),
         centerTitle: true,
-        backgroundColor: HexColor("#1dbf73"),
+        backgroundColor: HexColor("#009f8b"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
@@ -36,10 +37,14 @@ class _LoginPageState extends State<LoginPage> {
           key: _formfield,
           child: SingleChildScrollView(
             child: Column(children: [
-              Image(
-                width: 200,
-                image: AssetImage('./lib/assets/images/1.svg'),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SvgPicture.asset(
+                  "./lib/assets/images/login.svg",
+                  width: 300,
+                ),
               ),
+
               SizedBox(
                 height: 30,
               ),
@@ -156,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
                 style: TextButton.styleFrom(
-                    backgroundColor: HexColor('#FB2576'),
+                    backgroundColor: HexColor('#009f8b'),
                     foregroundColor: Colors.white,
                     padding: EdgeInsets.only(
                         left: 50, right: 50, top: 20, bottom: 20),
