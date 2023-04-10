@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "894615157997",
+    "firebase_url": "https://kafiil-12b6c-default-rtdb.firebaseio.com",
+    "project_id": "kafiil-12b6c",
+    "storage_bucket": "kafiil-12b6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894615157997:android:8ceb810270fa76ffb5a0e4",
+        "android_client_info": {
+          "package_name": "com.example.kafilmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894615157997-8rki03m1t1535v32o7rts5fpfrrboqa5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaeOWlWf2tzbckvmdG7YjW2P7GA5DEbKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894615157997-8rki03m1t1535v32o7rts5fpfrrboqa5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "894615157997-0asg07thse2s7vpb6b2vii600pg71aeq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kafilmobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
