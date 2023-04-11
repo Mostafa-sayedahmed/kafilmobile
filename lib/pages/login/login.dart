@@ -4,8 +4,13 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:kafilmobile/pages/forgotpassword/forgotpassword.dart';
 import 'package:kafilmobile/pages/home/home.dart';
+import 'package:kafilmobile/pages/navbar/navbar.dart';
 import '../register/register.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/foundation.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -28,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text('login'),
         centerTitle: true,
-        backgroundColor: HexColor("#EA5455"),
+        backgroundColor: HexColor("#009f8b"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
@@ -36,10 +41,14 @@ class _LoginPageState extends State<LoginPage> {
           key: _formfield,
           child: SingleChildScrollView(
             child: Column(children: [
-              Image(
-                width: 200,
-                image: AssetImage('./lib/assets/padlock.png'),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SvgPicture.asset(
+                  "./lib/assets/images/login.svg",
+                  width: 300,
+                ),
               ),
+
               SizedBox(
                 height: 30,
               ),
@@ -103,8 +112,9 @@ class _LoginPageState extends State<LoginPage> {
 
               TextButton(
                 onLongPress: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => (Homepage()))));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: ((context) => (Homepage()))));
+                  Get.to(Navbar());
                 },
                 onPressed: () async {
                   print(_emailfield.currentState?.value +
@@ -131,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                               'Login sucess, You can now Start using the App!'),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        Get.to(Homepage());
+                        Get.to(Navbar());
                       }
                       print(auth.currentUser);
                     } on FirebaseAuthException catch (e) {
@@ -156,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
                 style: TextButton.styleFrom(
-                    backgroundColor: HexColor('#FB2576'),
+                    backgroundColor: HexColor('#009f8b'),
                     foregroundColor: Colors.white,
                     padding: EdgeInsets.only(
                         left: 50, right: 50, top: 20, bottom: 20),
@@ -166,6 +176,120 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text('Login'),
               ),
               /////////
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                      onPressed: () async {
+                        // print('twitter login');
+
+                        // Future<void> _signInWithTwitter() async {
+                        TwitterAuthProvider twitterProvider =
+                            TwitterAuthProvider();
+
+                        if (kIsWeb) {
+                          await FirebaseAuth.instance
+                              .signInWithPopup(twitterProvider)
+                              .then((value) => {
+                                    print('login success'),
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: Colors.greenAccent,
+                                        content: Text('Login sucess!'),
+                                      ),
+                                    ),
+                                    Get.to(Navbar())
+                                  })
+                              .catchError((error) => {
+                                    print(error.message),
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      backgroundColor: Colors.redAccent,
+                                      content: Text('${error.message}'),
+                                    ))
+                                  });
+                        } else {
+                          await FirebaseAuth.instance
+                              .signInWithProvider(twitterProvider)
+                              .then((value) => {
+                                    print('login success'),
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: Colors.greenAccent,
+                                        content: Text('Login sucess!'),
+                                      ),
+                                    ),
+                                    Get.to(Navbar())
+                                  })
+                              .catchError((error) => {
+                                    print(error.message),
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      backgroundColor: Colors.redAccent,
+                                      content: Text('${error.message}'),
+                                    ))
+                                  });
+                          // }
+                        }
+                      },
+                      icon: Icon(FontAwesomeIcons.twitter),
+                      label: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text('sign in with twitter'),
+                      )),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  ElevatedButton.icon(
+                      onPressed: () async {
+                        GoogleAuthProvider googleProvider =
+                            GoogleAuthProvider();
+
+                        googleProvider.addScope(
+                            'https://www.googleapis.com/auth/contacts.readonly');
+                        googleProvider.setCustomParameters(
+                            {'login_hint': 'user@example.com'});
+
+                        // Once signed in, return the UserCredential
+                        await FirebaseAuth.instance
+                            .signInWithPopup(googleProvider)
+                            .then((value) => {
+                                  print('login success'),
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      backgroundColor: Colors.greenAccent,
+                                      content: Text('Login sucess!'),
+                                    ),
+                                  ),
+                                  Get.to(Navbar())
+                                })
+                            .catchError((error) => {
+                                  print(error.message),
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    backgroundColor: Colors.redAccent,
+                                    content: Text('${error.message}'),
+                                  ))
+                                });
+
+                        // Or use signInWithRedirect
+                        // return await FirebaseAuth.instance.signInWithRedirect(googleProvider);
+                      },
+                      style: ButtonStyle(backgroundColor:
+                          MaterialStateProperty.resolveWith<Color?>(
+                              (Set<MaterialState> states) {
+                        return Colors.redAccent;
+                      })),
+                      icon: Icon(FontAwesomeIcons.google),
+                      label: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text('sign in with Google'),
+                      )),
+                ],
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -194,7 +318,14 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 20,
               ),
-              TextButton(onPressed: () {}, child: Text('Forgot password?')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Forgotpassword()));
+                  },
+                  child: Text('Forgot password?')),
             ]),
           ),
         ),
