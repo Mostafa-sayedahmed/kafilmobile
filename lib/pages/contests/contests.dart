@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -20,10 +22,12 @@ class _contestPageState extends State<contestPage> {
   bool isload = true;
 
   getcontestData() async {
-    contest = await contestServices().albumData();
-    if (contest != []) {
-      isload = false;
-    }
+    contest = await contestServices().getAllContests();
+
+   
+    // if (contest != []) {
+    //   isload = false;
+    // }
     setState(() {});
   }
 
