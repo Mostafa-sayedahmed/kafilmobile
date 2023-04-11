@@ -6,6 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kafilmobile/pages/forgotpassword/forgotpassword.dart';
 import 'package:kafilmobile/pages/home/home.dart';
+import 'package:kafilmobile/pages/navbar/navbar.dart';
 import '../register/register.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -113,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                 onLongPress: () {
                   // Navigator.push(context,
                   //     MaterialPageRoute(builder: ((context) => (Homepage()))));
-                  Get.to(Homepage());
+                  Get.to(Navbar());
                 },
                 onPressed: () async {
                   print(_emailfield.currentState?.value +
@@ -140,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                               'Login sucess, You can now Start using the App!'),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        Get.to(Homepage());
+                        Get.to(Navbar());
                       }
                       print(auth.currentUser);
                     } on FirebaseAuthException catch (e) {
@@ -200,7 +201,7 @@ class _LoginPageState extends State<LoginPage> {
                                         content: Text('Login sucess!'),
                                       ),
                                     ),
-                                    Get.to(Homepage())
+                                    Get.to(Navbar())
                                   })
                               .catchError((error) => {
                                     print(error.message),
@@ -221,7 +222,7 @@ class _LoginPageState extends State<LoginPage> {
                                         content: Text('Login sucess!'),
                                       ),
                                     ),
-                                    Get.to(Homepage())
+                                    Get.to(Navbar())
                                   })
                               .catchError((error) => {
                                     print(error.message),
@@ -263,7 +264,7 @@ class _LoginPageState extends State<LoginPage> {
                                       content: Text('Login sucess!'),
                                     ),
                                   ),
-                                  Get.to(Homepage())
+                                  Get.to(Navbar())
                                 })
                             .catchError((error) => {
                                   print(error.message),
