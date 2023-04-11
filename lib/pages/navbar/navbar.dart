@@ -19,8 +19,8 @@ class _NavbarState extends State<Navbar> {
     Homepage(),
     Services(),
     Homepage(),
-    Homepage(),
     Services(),
+    Homepage(),
   ];
   @override
   Widget build(BuildContext context) {

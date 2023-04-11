@@ -15,7 +15,7 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Homepage'),
+        title: Text('الرئيسية'),
         backgroundColor: HexColor('#1dbf73'),
       ),
       body: Padding(
