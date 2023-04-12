@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:kafilmobile/pages/freelancers/freelancers.dart';
 import 'package:kafilmobile/pages/login/login.dart';
 import 'firebase_options.dart';
 
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: Homepage(),
-      home: LoginPage(),
+      home:Freelancers() ,
     );
   }
 }
