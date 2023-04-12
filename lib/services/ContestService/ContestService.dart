@@ -1,60 +1,81 @@
 
 import 'dart:html';
 
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
+
+// class contestServices{
+
+//   Future<List<Contestnetworkmodel>> getAllContests() async {
+
+//   FirebaseFirestore firestore = FirebaseFirestore.instance;
+//   QuerySnapshot contestQuerySnapshot = await firestore.collection('contests').get();
+
+//   List<Contestnetworkmodel> contests = contestQuerySnapshot.docs.map(
+//     (DocumentSnapshot<Object?> document) {
+//       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+//       return Contestnetworkmodel.fromJson(data);
+//     }
+//   ).toList();
+
+
+//   return contests;
+// }
+  
+// }
+
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
 
-class contestServices{
+class contestServices {
+  Future<List<Map<String, dynamic>>> getAllContests() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    QuerySnapshot contestQuerySnapshot = await firestore.collection('contests').get();
 
-  Future<List<Contestnetworkmodel>> getAllContests() async {
-  // Retrieve all contest documents from Firebase
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  QuerySnapshot contestQuerySnapshot = await firestore.collection('contests').get();
-
-  // Convert each contest document to an instance of Contestnetworkmodel and store in a list
-  print(contestQuerySnapshot);
-
-  // List<Contestnetworkmodel> contests = contestQuerySnapshot.docs.map(
-  //   (DocumentSnapshot document) => Contestnetworkmodel.fromJson(document.data())
-  // ).toList();
-
-  List<Contestnetworkmodel> contests = contestQuerySnapshot.docs.map(
-    (DocumentSnapshot<Object?> document) {
+    List<Map<String, dynamic>> contests = contestQuerySnapshot.docs.map((document) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      return Contestnetworkmodel.fromJson(data);
-    }
-  ).toList();
+      Contestnetworkmodel contest = Contestnetworkmodel.fromJson(data);
+      // Contestnetworkmodel contest = Contestnetworkmodel(
+      //   posts: data["Posts"],
+      //   views: data["Views"],
+      //   accepted: data["accepted"],
+      //   comment: data["comment"],
+      //   completed: data["completed"],
+      //   conditions: data["conditions"],
+      //   contestDuration: data["contestDuration"],
+      //   contestants: data["contestants"],
+      //   deliveryDuration: data["deliveryDuration"],
+      //   description: data["description"],
+      //   firstWinner: data["firstWinner"],
+      //   sectionId: data["sectionId"],
+      //   skills: data["skills"],
+      //   title: data["title"],
+      //   userId: data["userId"],
+      //   userImg: data["userImg"],
+      //   userName: data["userName"],
+      //   winnersNum: data["winnersNum"]
+      // );
+      return contest.toJson();
+    }).toList();
 
-
-  return contests;
-
+    return contests;
+  }
 }
-  
-}
 
 
-// import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
+// class contestServices {
+//   Future<List<Contestnetworkmodel>> getAllContests() async {
+//     FirebaseFirestore firestore = FirebaseFirestore.instance;
+//     QuerySnapshot contestQuerySnapshot = await firestore.collection('contests').get();
 
-// const String site = "https://jsonplaceholder.typicode.com/";
+//     List<Contestnetworkmodel> contests = contestQuerySnapshot.docs.map((document) {
+//       Contestnetworkmodel data = document.data() as Contestnetworkmodel;
+//       Contestnetworkmodel contest = Contestnetworkmodel.fromJson(data as Map<String, dynamic>);
+//       return contest.toJson();
+//     }).cast<Contestnetworkmodel>().toList();
 
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
-// class contestServices{
-//   // String albumsLink = "albums";
-
-//   Future<List<Contestnetworkmodel>> contestData() async{
-//     List<Contestnetworkmodel> contest = [];
-//     // final dio = Dio();
-//     // try{
-//     //   final response = await dio.get('${site}${albumsLink}');
-//     //   response.data.forEach((ele){
-//     //     Contestnetworkmodel album = Contestnetworkmodel.fromJson(ele);
-//     //     albums.add(album);
-//     //   });
-//     //   print(response.data);
-//     // }catch(e){
-//     //   print(e);
-//     // }
-
-
-
+//     return contests;
+//   }
+// }

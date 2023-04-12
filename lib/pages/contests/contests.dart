@@ -8,6 +8,14 @@ import 'package:kafilmobile/services/ContestService/ContestService.dart';
 import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
 
 import 'package:flutter/material.dart';
+
+import 'package:kafilmobile/model/ContestModel/constModel.dart';
+// 
+
+import 'package:hexcolor/hexcolor.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
+// final firestore = FirebaseFirestore.instance;
 // import 'package:app1/view/pages/contestpage/singlecontestPage.dart';
 
 class contestPage extends StatefulWidget {
@@ -18,16 +26,33 @@ class contestPage extends StatefulWidget {
 }
 
 class _contestPageState extends State<contestPage> {
-  List<Contestnetworkmodel> contest = [];
-  bool isload = true;
+
+
+
+   List<Map<String, dynamic>> contestEle = [];
+
+  //  List<Contestnetworkmodel> contest = [];
+  
+  //   getdata() async {
+
+
+  //   await firestore.collection('contests').get().then((e) {
+      
+  //     for (var doc in e.docs) {
+  //       // print("${doc.id} => ${doc.data()}");
+  //        contest.add(doc.data() as Contestnetworkmodel);
+        
+  //     }
+  //     print(contest);
+  //   });
+
+  // }
 
   getcontestData() async {
-    contest = await contestServices().getAllContests();
+    contestEle = await contestServices().getAllContests();
 
-   
-    // if (contest != []) {
-    //   isload = false;
-    // }
+    print(contestEle);
+
     setState(() {});
   }
 
@@ -35,23 +60,40 @@ class _contestPageState extends State<contestPage> {
   void initState() {
     super.initState();
     getcontestData();
-    // contestServices().contestData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.teal,
-        title: const Text(
-          "contest",
-          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-        ),
+       appBar: AppBar(
+          title: Text('المسابقات'),
+          centerTitle: true,
+          backgroundColor: HexColor('#1dbf73')
       ),
       body: Padding(
           padding: const EdgeInsets.all(12.0),
-          child: Card(
+          child:
+          Container(
+              child:ListView.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    print(contestEle[index]);
+                    return SingleContest(contest:contestEle[index]);
+                  },
+                  itemCount: contestEle.length-1)
+                  )
+          ),
+    );
+  }
+}
+
+class SingleContest extends StatelessWidget {
+  const SingleContest({super.key , required this.contest});
+  // final ConstModel contest ;
+  final contest ;
+  @override
+  Widget build(BuildContext context) {
+    return 
+        Card(
             elevation: 4,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -60,13 +102,12 @@ class _contestPageState extends State<contestPage> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        'John Doe',
+                        "contest.userName",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -80,11 +121,6 @@ class _contestPageState extends State<contestPage> {
                     ],
                   ),
                   SizedBox(height: 8),
-                  // Text(
-                  //   'Design',
-                  //   style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                  // ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -159,7 +195,7 @@ class _contestPageState extends State<contestPage> {
                         ),
                         Row(
                           children: [
-                            Text('36', style: TextStyle(color: Colors.grey)),
+                            Text('', style: TextStyle(color: Colors.grey)),
                             SizedBox(width: 8),
                             Icon(Icons.remove_red_eye, color: Colors.grey),
                           ],
@@ -177,53 +213,6 @@ class _contestPageState extends State<contestPage> {
                 ],
               ),
             ),
-          )),
-    );
+          );
   }
 }
-
-// class SingleContest extends StatelessWidget {
-//   const SingleContest({super.key , required this.contest});
-//   final Contestnetworkmodel contest ;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return 
-//     Padding(
-//       padding: const EdgeInsets.symmetric(vertical: 8),
-//       child: Row(
-//         children: [
-//           CircleAvatar(
-//             radius: 30,
-//             backgroundColor: Colors.teal,
-//             child: Text('${contest.id}',
-//               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-//             ),
-//           ),
-//           SizedBox(
-//               width: 10,
-//           ),
-//            Expanded(
-//              child: Column(
-//               crossAxisAlignment:  CrossAxisAlignment.start,
-//                 children: [
-//                   InkWell( onTap :(){
-//                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => singleContestPage(contest:contest)));
-//                   },
-//                     child: Text(contest.title,
-//                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-//                         maxLines: 1 , overflow: TextOverflow.ellipsis
-//                        ),
-//                   ),
-//                   SizedBox(
-//                     height: 5,
-//                   ),
-//                   Text('${contest.userId}', maxLines:  1 , overflow: TextOverflow.ellipsis),
-//                 ],
-//               ),
-//            ),
-//         ],
-//       ),
-//     );
-//   }
-// }
