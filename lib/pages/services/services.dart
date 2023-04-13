@@ -38,6 +38,7 @@ class _ServicesState extends State<Services> {
               print("Error : $e"),
             });
     return Scaffold(
+      backgroundColor: HexColor('#f1f2f2'),
       floatingActionButton: FloatingActionButton(onPressed: () {
         getdata();
       }),
@@ -46,12 +47,12 @@ class _ServicesState extends State<Services> {
           centerTitle: true,
           backgroundColor: HexColor('#1dbf73')),
       body: Padding(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
           children: [
             Column(children: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: StreamBuilder<QuerySnapshot>(
                   stream: _servicesStream,
                   builder: (BuildContext context,
@@ -80,6 +81,9 @@ class _ServicesState extends State<Services> {
                             rating: data['rating'],
                             orderscount: data['orderscount'],
                             isFeatured: data['isfeatured']!,
+                            userid: data['userid'],
+                            // username: username,
+                            // userimg: '',
                           ));
                         }).toList(),
                       );
@@ -99,104 +103,313 @@ class ServiceCard extends StatelessWidget {
   ServiceCard({
     super.key,
     String? this.uid,
+    String? this.userid,
     String? this.title,
     String? this.mainImg,
     int? this.rating,
     int? this.price,
     int? this.orderscount = 0,
     bool? this.isFeatured = false,
+    // String? this.username,
+    // String? this.userimg
   });
   String? uid;
+  String? userid;
   String? title;
   String? mainImg;
   int? rating;
   int? price;
   int? orderscount;
   bool? isFeatured;
-
+  String? username;
+  String? userimg;
   @override
   Widget build(BuildContext context) {
-    print(isFeatured);
-    print(mainImg);
-    return InkWell(
-      onTap: () {
-        print('object');
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.black38),
-              borderRadius: BorderRadius.circular(5)),
-          child: Column(
-            children: [
-              SizedBox(
-                  height: 200, child: Image(image: NetworkImage('${mainImg}'))),
-              Text(
-                '$title',
-                overflow: TextOverflow.ellipsis,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: Colors.amberAccent,
+    // print(isFeatured);
+    // print(mainImg);
+    // getuser() async  {
+    final docRef = firestore.collection("users").doc(userid);
+
+    // docRef.get().then(
+    //   (DocumentSnapshot doc) {
+    //     Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+    //     username = data['fullname'];
+    //     userimg = data['imgUrl'];
+    //     print(data['fullname']);
+    //   },
+    //   onError: (e) => print("Error getting document: $e"),
+    // );
+    // return username;
+    // }
+
+    return FutureBuilder<List>(
+        future: docRef.get().then(
+          (DocumentSnapshot doc) {
+            Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+            username = data['fullname'] == null ? 'no user' : data['fullname'];
+            userimg = data['imgUrl'] == null ? 'no user' : data['imgUrl'];
+            // print(data['fullname']);
+            return [
+              data['fullname'] == null ? 'no username' : data['fullname'],
+              data['imgUrl'] == null ? 'no image' : data['imgUrl'],
+            ];
+            // return data['fullname'];
+          },
+          onError: (e) => print("Error getting document: $e"),
+        ),
+        builder: (context, AsyncSnapshot<List> snapshot) {
+          if (snapshot.hasData) {
+            String cardusername = snapshot.data![0];
+            String carduserimg = snapshot.data![1];
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: InkWell(
+                onTap: () {
+                  print('$uid');
+                  // getuser();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black38),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(70, 0, 0, 0),
+                        blurRadius: 10,
+                        // spreadRadius: 5,
+                        blurStyle: BlurStyle.outer,
+                        // changes position of shadow
                       ),
-                      Text('$rating'),
-                      SizedBox(width: 10),
-                      Icon(
-                        Icons.shopping_cart,
-                        color: Colors.black38,
-                      ),
-                      Text('${orderscount != null ? '$orderscount' : '0'}'),
                     ],
                   ),
-                  isFeatured!
-                      ? Chip(
-                          label: Text(
-                            'موصي به',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          backgroundColor: HexColor('#1dbf73'),
-                        )
-                      : (SizedBox(
-                          width: 1,
-                        ))
-                ],
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    border: BorderDirectional(
-                        top: BorderSide(color: Colors.black38))),
-                child: Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
                     children: [
+                      Image.network(
+                        '${mainImg}',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: 200,
+                      ),
+                      Text(
+                        '$title',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CircleAvatar(
-                            backgroundImage:
-                                AssetImage('lib/assets/images/236832.png'),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.amberAccent,
+                                ),
+                                Text('$rating'),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  width: 1,
+                                  height: 20,
+                                  padding: EdgeInsets.all(30),
+                                  decoration: BoxDecoration(
+                                      border: BorderDirectional(
+                                          start: BorderSide(
+                                              color: Colors.black38))),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(
+                                  Icons.shopping_cart,
+                                  color: Colors.black38,
+                                ),
+                                Text(
+                                    '${orderscount != null ? '$orderscount' : '0'}'),
+                              ],
+                            ),
                           ),
-                          SizedBox(width: 20),
-                          Text(
-                            'username',
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                          isFeatured!
+                              ? Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Chip(
+                                    label: Text(
+                                      'موصي به',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    backgroundColor: HexColor('#1dbf73'),
+                                  ),
+                                )
+                              : (SizedBox(
+                                  width: 1,
+                                ))
                         ],
                       ),
-                      Text('$price \$'),
+                      Container(
+                        decoration: BoxDecoration(
+                            border: BorderDirectional(
+                                top: BorderSide(color: Colors.black38))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage:
+                                        NetworkImage('$carduserimg'),
+                                  ),
+                                  SizedBox(width: 20),
+                                  Text(
+                                    '$cardusername',
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                '$price \$',
+                                style: TextStyle(
+                                    fontSize: 18, color: HexColor('#1dbf73')),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
+        });
+    // }
+
+    // getuser();
+
+    // return Padding(
+    //   padding: const EdgeInsets.symmetric(vertical: 8.0),
+    //   child: InkWell(
+    //     onTap: () {
+    //       print('$uid');
+    //       // getuser();
+    //     },
+    //     child: Container(
+    //       decoration: BoxDecoration(
+    //         border: Border.all(color: Colors.black38),
+    //         borderRadius: BorderRadius.circular(10),
+    //         boxShadow: [
+    //           BoxShadow(
+    //             color: Color.fromARGB(70, 0, 0, 0),
+    //             blurRadius: 10,
+    //             // spreadRadius: 5,
+    //             blurStyle: BlurStyle.outer,
+    //             // changes position of shadow
+    //           ),
+    //         ],
+    //       ),
+    //       child: Column(
+    //         children: [
+    //           Image.network(
+    //             '${mainImg}',
+    //             fit: BoxFit.cover,
+    //             width: double.infinity,
+    //             height: 200,
+    //           ),
+    //           Text(
+    //             '$title',
+    //             overflow: TextOverflow.ellipsis,
+    //             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+    //           ),
+    //           Row(
+    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //             children: [
+    //               Padding(
+    //                 padding: const EdgeInsets.all(10.0),
+    //                 child: Row(
+    //                   children: [
+    //                     Icon(
+    //                       Icons.star,
+    //                       color: Colors.amberAccent,
+    //                     ),
+    //                     Text('$rating'),
+    //                     SizedBox(
+    //                       width: 10,
+    //                     ),
+    //                     Container(
+    //                       width: 1,
+    //                       height: 20,
+    //                       padding: EdgeInsets.all(30),
+    //                       decoration: BoxDecoration(
+    //                           border: BorderDirectional(
+    //                               start: BorderSide(color: Colors.black38))),
+    //                     ),
+    //                     SizedBox(
+    //                       width: 10,
+    //                     ),
+    //                     Icon(
+    //                       Icons.shopping_cart,
+    //                       color: Colors.black38,
+    //                     ),
+    //                     Text('${orderscount != null ? '$orderscount' : '0'}'),
+    //                   ],
+    //                 ),
+    //               ),
+    //               isFeatured!
+    //                   ? Padding(
+    //                       padding: const EdgeInsets.only(left: 10),
+    //                       child: Chip(
+    //                         label: Text(
+    //                           'موصي به',
+    //                           style: TextStyle(color: Colors.white),
+    //                         ),
+    //                         backgroundColor: HexColor('#1dbf73'),
+    //                       ),
+    //                     )
+    //                   : (SizedBox(
+    //                       width: 1,
+    //                     ))
+    //             ],
+    //           ),
+    //           Container(
+    //             decoration: BoxDecoration(
+    //                 border: BorderDirectional(
+    //                     top: BorderSide(color: Colors.black38))),
+    //             child: Padding(
+    //               padding: const EdgeInsets.all(10.0),
+    //               child: Row(
+    //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                 children: [
+    //                   Row(
+    //                     children: [
+    //                       CircleAvatar(
+    //                         backgroundImage: NetworkImage('$userimg'),
+    //                       ),
+    //                       SizedBox(width: 20),
+    //                       Text(
+    //                         '$username',
+    //                         overflow: TextOverflow.ellipsis,
+    //                       ),
+    //                     ],
+    //                   ),
+    //                   Text(
+    //                     '$price \$',
+    //                     style:
+    //                         TextStyle(fontSize: 18, color: HexColor('#1dbf73')),
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }
