@@ -47,36 +47,48 @@ class _ServicesState extends State<Services> {
           backgroundColor: HexColor('#1dbf73')),
       body: Padding(
         padding: EdgeInsets.all(15),
-        child: Expanded(
-          child: ListView(
-            scrollDirection: Axis.vertical,
-            children: [
-              Column(children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: StreamBuilder<QuerySnapshot>(
-                    stream: _servicesStream,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasError) {
-                        return Text('Something went wrong');
-                      } else {
-                        return Column(
-                          children: snapshot.data!.docs
-                              .map((DocumentSnapshot document) {
-                            Map<String, dynamic> data =
-                                document.data()! as Map<String, dynamic>;
+        child: ListView(
+          children: [
+            Column(children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: _servicesStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong');
+                    }
 
-                            return (Text(data['title']));
-                          }).toList(),
-                        );
-                      }
-                    },
-                  ),
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Text("Loading");
+                    }
+                    if (snapshot.data!.docs.length == 0) {
+                      return Text('no data available');
+                    } else {
+                      return Column(
+                        children: snapshot.data!.docs
+                            .map((DocumentSnapshot document) {
+                          Map<String, dynamic> data =
+                              document.data()! as Map<String, dynamic>;
+
+                          return (ServiceCard(
+                            uid: document.id,
+                            title: data['title'],
+                            mainImg: data['mainImg'],
+                            price: data['price'],
+                            rating: data['rating'],
+                            orderscount: data['orderscount'],
+                            isFeatured: data['isfeatured']!,
+                          ));
+                        }).toList(),
+                      );
+                    }
+                  },
                 ),
-              ]),
-            ],
-          ),
+              ),
+            ])
+          ],
         ),
       ),
     );
@@ -84,82 +96,105 @@ class _ServicesState extends State<Services> {
 }
 
 class ServiceCard extends StatelessWidget {
-  const ServiceCard({super.key});
+  ServiceCard({
+    super.key,
+    String? this.uid,
+    String? this.title,
+    String? this.mainImg,
+    int? this.rating,
+    int? this.price,
+    int? this.orderscount = 0,
+    bool? this.isFeatured = false,
+  });
+  String? uid;
+  String? title;
+  String? mainImg;
+  int? rating;
+  int? price;
+  int? orderscount;
+  bool? isFeatured;
 
   @override
   Widget build(BuildContext context) {
+    print(isFeatured);
+    print(mainImg);
     return InkWell(
       onTap: () {
         print('object');
       },
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.black38),
-            borderRadius: BorderRadius.circular(5)),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 200,
-              child: Image.asset('lib/assets/images/3275434.jpg'),
-            ),
-            Text(
-              'Titljfjhg jhg jhgjhgjhg jhgjhg jhjh gjhg jhgj hgj hjhgj h jhe',
-              overflow: TextOverflow.ellipsis,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.star,
-                      color: Colors.amberAccent,
-                    ),
-                    Text('5.0'),
-                    SizedBox(width: 10),
-                    Icon(
-                      Icons.shopping_cart,
-                      color: Colors.black38,
-                    ),
-                    Text('50'),
-                  ],
-                ),
-                Chip(
-                  label: Text(
-                    'موصي به',
-                    style: TextStyle(color: Colors.white),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.black38),
+              borderRadius: BorderRadius.circular(5)),
+          child: Column(
+            children: [
+              SizedBox(
+                  height: 200, child: Image(image: NetworkImage('${mainImg}'))),
+              Text(
+                '$title',
+                overflow: TextOverflow.ellipsis,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: Colors.amberAccent,
+                      ),
+                      Text('$rating'),
+                      SizedBox(width: 10),
+                      Icon(
+                        Icons.shopping_cart,
+                        color: Colors.black38,
+                      ),
+                      Text('${orderscount != null ? '$orderscount' : '0'}'),
+                    ],
                   ),
-                  backgroundColor: HexColor('#1dbf73'),
-                )
-              ],
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  border: BorderDirectional(
-                      top: BorderSide(color: Colors.black38))),
-              child: Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage:
-                              AssetImage('lib/assets/images/236832.png'),
-                        ),
-                        SizedBox(width: 20),
-                        Text(
-                          'username',
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                    Text('25'),
-                  ],
+                  isFeatured!
+                      ? Chip(
+                          label: Text(
+                            'موصي به',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: HexColor('#1dbf73'),
+                        )
+                      : (SizedBox(
+                          width: 1,
+                        ))
+                ],
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    border: BorderDirectional(
+                        top: BorderSide(color: Colors.black38))),
+                child: Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundImage:
+                                AssetImage('lib/assets/images/236832.png'),
+                          ),
+                          SizedBox(width: 20),
+                          Text(
+                            'username',
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                      Text('$price \$'),
+                    ],
+                  ),
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
