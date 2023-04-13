@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:kafilmobile/pages/servicedetails/servicedetails.dart';
 
 final firestore = FirebaseFirestore.instance;
 final servicesRef = firestore.collection('services');
@@ -82,8 +83,6 @@ class _ServicesState extends State<Services> {
                             orderscount: data['orderscount'],
                             isFeatured: data['isfeatured']!,
                             userid: data['userid'],
-                            // username: username,
-                            // userimg: '',
                           ));
                         }).toList(),
                       );
@@ -110,8 +109,6 @@ class ServiceCard extends StatelessWidget {
     int? this.price,
     int? this.orderscount = 0,
     bool? this.isFeatured = false,
-    // String? this.username,
-    // String? this.userimg
   });
   String? uid;
   String? userid;
@@ -125,22 +122,7 @@ class ServiceCard extends StatelessWidget {
   String? userimg;
   @override
   Widget build(BuildContext context) {
-    // print(isFeatured);
-    // print(mainImg);
-    // getuser() async  {
     final docRef = firestore.collection("users").doc(userid);
-
-    // docRef.get().then(
-    //   (DocumentSnapshot doc) {
-    //     Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
-    //     username = data['fullname'];
-    //     userimg = data['imgUrl'];
-    //     print(data['fullname']);
-    //   },
-    //   onError: (e) => print("Error getting document: $e"),
-    // );
-    // return username;
-    // }
 
     return FutureBuilder<List>(
         future: docRef.get().then(
@@ -165,8 +147,12 @@ class ServiceCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: InkWell(
                 onTap: () {
-                  print('$uid');
-                  // getuser();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Servicedetails(
+                                serviceid: uid,
+                              )));
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -288,128 +274,5 @@ class ServiceCard extends StatelessWidget {
             return CircularProgressIndicator();
           }
         });
-    // }
-
-    // getuser();
-
-    // return Padding(
-    //   padding: const EdgeInsets.symmetric(vertical: 8.0),
-    //   child: InkWell(
-    //     onTap: () {
-    //       print('$uid');
-    //       // getuser();
-    //     },
-    //     child: Container(
-    //       decoration: BoxDecoration(
-    //         border: Border.all(color: Colors.black38),
-    //         borderRadius: BorderRadius.circular(10),
-    //         boxShadow: [
-    //           BoxShadow(
-    //             color: Color.fromARGB(70, 0, 0, 0),
-    //             blurRadius: 10,
-    //             // spreadRadius: 5,
-    //             blurStyle: BlurStyle.outer,
-    //             // changes position of shadow
-    //           ),
-    //         ],
-    //       ),
-    //       child: Column(
-    //         children: [
-    //           Image.network(
-    //             '${mainImg}',
-    //             fit: BoxFit.cover,
-    //             width: double.infinity,
-    //             height: 200,
-    //           ),
-    //           Text(
-    //             '$title',
-    //             overflow: TextOverflow.ellipsis,
-    //             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-    //           ),
-    //           Row(
-    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //             children: [
-    //               Padding(
-    //                 padding: const EdgeInsets.all(10.0),
-    //                 child: Row(
-    //                   children: [
-    //                     Icon(
-    //                       Icons.star,
-    //                       color: Colors.amberAccent,
-    //                     ),
-    //                     Text('$rating'),
-    //                     SizedBox(
-    //                       width: 10,
-    //                     ),
-    //                     Container(
-    //                       width: 1,
-    //                       height: 20,
-    //                       padding: EdgeInsets.all(30),
-    //                       decoration: BoxDecoration(
-    //                           border: BorderDirectional(
-    //                               start: BorderSide(color: Colors.black38))),
-    //                     ),
-    //                     SizedBox(
-    //                       width: 10,
-    //                     ),
-    //                     Icon(
-    //                       Icons.shopping_cart,
-    //                       color: Colors.black38,
-    //                     ),
-    //                     Text('${orderscount != null ? '$orderscount' : '0'}'),
-    //                   ],
-    //                 ),
-    //               ),
-    //               isFeatured!
-    //                   ? Padding(
-    //                       padding: const EdgeInsets.only(left: 10),
-    //                       child: Chip(
-    //                         label: Text(
-    //                           'موصي به',
-    //                           style: TextStyle(color: Colors.white),
-    //                         ),
-    //                         backgroundColor: HexColor('#1dbf73'),
-    //                       ),
-    //                     )
-    //                   : (SizedBox(
-    //                       width: 1,
-    //                     ))
-    //             ],
-    //           ),
-    //           Container(
-    //             decoration: BoxDecoration(
-    //                 border: BorderDirectional(
-    //                     top: BorderSide(color: Colors.black38))),
-    //             child: Padding(
-    //               padding: const EdgeInsets.all(10.0),
-    //               child: Row(
-    //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                 children: [
-    //                   Row(
-    //                     children: [
-    //                       CircleAvatar(
-    //                         backgroundImage: NetworkImage('$userimg'),
-    //                       ),
-    //                       SizedBox(width: 20),
-    //                       Text(
-    //                         '$username',
-    //                         overflow: TextOverflow.ellipsis,
-    //                       ),
-    //                     ],
-    //                   ),
-    //                   Text(
-    //                     '$price \$',
-    //                     style:
-    //                         TextStyle(fontSize: 18, color: HexColor('#1dbf73')),
-    //                   ),
-    //                 ],
-    //               ),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }
