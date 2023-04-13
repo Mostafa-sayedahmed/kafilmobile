@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:kafilmobile/Services%20for%20us/freelancerService.dart';
 import 'package:kafilmobile/model/freelancermodel.dart';
+import 'package:kafilmobile/pages/freelancers/singleFreelancer.dart';
 import 'package:kafilmobile/pages/home/home.dart';
 import 'package:kafilmobile/pages/register/register.dart';
 
@@ -15,6 +18,7 @@ class Freelancers extends StatefulWidget {
 }
 
 class _FreelancersState extends State<Freelancers> {
+  bool isLoad = true;
   List<FreelancerModel> freelancersBody = [];
   late Map<String, dynamic> test;
   List itemList = [];
@@ -23,9 +27,23 @@ class _FreelancersState extends State<Freelancers> {
     final Freelancers = await _firestore.collection('Freelancers').get();
     for (var freelancer in Freelancers.docs) {
       itemList.add(freelancer.data());
-      print(itemList);
     }
-   
+    //  print(itemList[1]['name']);
+  }
+
+  List DATA = [];
+  getFreelancersData() async {
+    DATA = await FreelancerService().FreelancerData();
+    if (DATA != []) {
+      isLoad = false;
+    }
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getFreelancersData();
   }
 
   @override
@@ -43,14 +61,16 @@ class _FreelancersState extends State<Freelancers> {
               Text(
                 "Freelancers",
                 style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
               )
             ],
           ),
           actions: [
             CircleAvatar(
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => Homepage()));
+                  },
                   icon: Icon(
                     Icons.home_filled,
                     color: Colors.black,
@@ -61,10 +81,10 @@ class _FreelancersState extends State<Freelancers> {
             CircleAvatar(
                 child: IconButton(
                     onPressed: () {
-                      getDataFreelancers();
+                     
                     },
                     icon: Icon(
-                      Icons.download,
+                      Icons.more_horiz_outlined,
                       color: Colors.black,
                     )),
                 backgroundColor: Colors.grey[100]),
@@ -73,16 +93,25 @@ class _FreelancersState extends State<Freelancers> {
           elevation: 0,
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                return MyWidget(name: 'name', text: 'text', time: 'time', img: 'img');
-              },
-              itemCount: 5,
-            ),
-          ),
-        ));
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child: isLoad
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.lightGreen,
+                      ),
+                    )
+                  : ListView.builder(
+                      itemBuilder: (BuildContext context, int index) {
+                        return FREELANCER(
+                            name: DATA[index]['name'],
+                            title: DATA[index]['title'],
+                            img: DATA[index]['img'],
+                            );
+                      },
+                      itemCount: DATA.length,
+                    ),
+            )));
   }
 }
 
@@ -96,7 +125,8 @@ class ActiveOne extends StatelessWidget {
       width: 60,
       child: Column(
         children: [
-          CircleAvatar(backgroundImage: NetworkImage(img)),
+          InkWell(
+            child: CircleAvatar(backgroundImage: NetworkImage(img))),
           Text(
             data,
             maxLines: 2,
@@ -109,102 +139,106 @@ class ActiveOne extends StatelessWidget {
   }
 }
 
-class MyWidget extends StatelessWidget {
-  const MyWidget(
-      {super.key,
-      required this.name,
-      required this.text,
-      required this.time,
-      required this.img});
+// class MyWidget extends StatelessWidget {
+//   const MyWidget(
+//       {super.key,
+//       required this.name,
+//       required this.text,
+//       required this.time,
+//       required this.img});
+//   final String name;
+//   final String text;
+//   final String time;
+//   final String img;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         InkWell(onTap: (){
+//            Navigator.push(context,MaterialPageRoute(builder: (context) => SingleFreelancer(freelancerName: name,)));
+//           },
+//           child: CircleAvatar(
+//             backgroundImage: NetworkImage(img),
+//           ),
+//         ),
+//         SizedBox(width: 10),
+//         Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Text(name, style: TextStyle(fontSize: 14)),
+//             SizedBox(
+//               height: 2,
+//             ),
+//             Row(
+//               children: [
+//                 Container(
+//                     width: MediaQuery.of(context).size.width * 0.6,
+//                     child: Text(
+//                       text,
+//                       style: TextStyle(fontSize: 10),
+//                       maxLines: 2,
+//                       overflow: TextOverflow.ellipsis,
+//                     )),
+//                 SizedBox(width: 10),
+//                 Container(
+//                   width: 5,
+//                   height: 5,
+//                   decoration:
+//                       BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+//                 ),
+//                 SizedBox(width: 3),
+//                 Text(
+//                   time,
+//                   style: TextStyle(fontSize: 10),
+//                 )
+//               ],
+//             ),
+//             SizedBox(height: 25),
+//           ],
+//         )
+//       ],
+//     );
+//   }
+// }
+class FREELANCER extends StatelessWidget {
+  const FREELANCER({
+    super.key,
+    required this.name,
+    required this.title,
+    required this.img,
+  });
   final String name;
-  final String text;
-  final String time;
+  final String title;
   final String img;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleAvatar(
-          backgroundImage: NetworkImage(img),
-        ),
-        SizedBox(width: 10),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(name, style: TextStyle(fontSize: 14)),
-            SizedBox(
-              height: 2,
+    return Center(
+      child: Card(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+             ListTile(
+              leading: CircleAvatar(
+               backgroundImage: NetworkImage(img),
+              ),
+              title: Text(name),
+              subtitle: Text(title),
             ),
             Row(
-              children: [
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: Text(
-                      text,
-                      style: TextStyle(fontSize: 10),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    )),
-                SizedBox(width: 10),
-                Container(
-                  width: 5,
-                  height: 5,
-                  decoration:
-                      BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                const SizedBox(width: 8),
+                TextButton(
+                  child: const Text('SEE MORE DETAILS !'),
+                  onPressed: () { Navigator.push(context,MaterialPageRoute(builder: (context) => SingleFreelancer(freelancerName: name,freelancerImg:img,freelancerTitle:title,)));},
                 ),
-                SizedBox(width: 3),
-                Text(
-                  time,
-                  style: TextStyle(fontSize: 10),
-                )
+                const SizedBox(width: 8),
               ],
             ),
-            SizedBox(height: 25),
           ],
-        )
-      ],
-    );
-  }
-}
-
-class SingleUser extends StatelessWidget {
-  const SingleUser({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    String $;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        children: [
-          CircleAvatar(
-            child: Text("user id"),
-            radius: 30,
-            backgroundColor: Colors.tealAccent,
-          ),
-          SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Homepage()));
-                  },
-                  child: Text("user.title")),
-              SizedBox(
-                height: 5,
-              ),
-              InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Homepage()));
-                  },
-                  child: Text("user id"))
-            ],
-          )
-        ],
+        ),
       ),
     );
   }
