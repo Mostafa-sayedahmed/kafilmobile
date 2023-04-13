@@ -38,8 +38,8 @@ class contestServices {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
       Contestnetworkmodel contest = Contestnetworkmodel.fromJson(data);
       // Contestnetworkmodel contest = Contestnetworkmodel(
-      //   posts: data["Posts"],
-      //   views: data["Views"],
+      //   Posts: data["Posts"],
+      //   Views: data["Views"],
       //   accepted: data["accepted"],
       //   comment: data["comment"],
       //   completed: data["completed"],
@@ -64,18 +64,3 @@ class contestServices {
   }
 }
 
-
-// class contestServices {
-//   Future<List<Contestnetworkmodel>> getAllContests() async {
-//     FirebaseFirestore firestore = FirebaseFirestore.instance;
-//     QuerySnapshot contestQuerySnapshot = await firestore.collection('contests').get();
-
-//     List<Contestnetworkmodel> contests = contestQuerySnapshot.docs.map((document) {
-//       Contestnetworkmodel data = document.data() as Contestnetworkmodel;
-//       Contestnetworkmodel contest = Contestnetworkmodel.fromJson(data as Map<String, dynamic>);
-//       return contest.toJson();
-//     }).cast<Contestnetworkmodel>().toList();
-
-//     return contests;
-//   }
-// }

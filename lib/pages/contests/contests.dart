@@ -7,10 +7,10 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:kafilmobile/services/ContestService/ContestService.dart';
 import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
 
-import 'package:flutter/material.dart';
+import 'package:kafilmobile/pages/contests/singleContest';
 
-import 'package:kafilmobile/model/ContestModel/constModel.dart';
-// 
+
+// import 'package:kafilmobile/model/ContestModel/constModel.dart';
 
 import 'package:hexcolor/hexcolor.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,6 +30,7 @@ class _contestPageState extends State<contestPage> {
 
 
    List<Map<String, dynamic>> contestEle = [];
+
 
   //  List<Contestnetworkmodel> contest = [];
   
@@ -56,9 +57,12 @@ class _contestPageState extends State<contestPage> {
     setState(() {});
   }
 
+
+
   @override
   void initState() {
     super.initState();
+
     getcontestData();
   }
 
@@ -79,7 +83,7 @@ class _contestPageState extends State<contestPage> {
                     print(contestEle[index]);
                     return SingleContest(contest:contestEle[index]);
                   },
-                  itemCount: contestEle.length-1)
+                    itemCount: contestEle.length-1)
                   )
           ),
     );
@@ -132,11 +136,21 @@ class SingleContest extends StatelessWidget {
                             style: TextStyle(fontSize: 14, color: Colors.grey),
                           ),
                           SizedBox(height: 4),
-                          Text(
-                            'This design is very important, I like it',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          ),
+                          // 
+                            InkWell( onTap :(){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => singleContestPage(contest:contest)));
+                            },
+                              child: Text(
+                                  'This design is very important, I like it',
+                                  style: TextStyle(
+                                      fontSize: 14, fontWeight: FontWeight.bold),
+                                ),
+                            ),
+                          // Text(
+                          //   'This design is very important, I like it',
+                          //   style: TextStyle(
+                          //       fontSize: 14, fontWeight: FontWeight.bold),
+                          // ),
                         ],
                       ),
                       SizedBox(width: 8),

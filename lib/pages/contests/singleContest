@@ -1,0 +1,33 @@
+
+import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
+
+import 'package:kafilmobile/services/ContestService/ContestService.dart';
+import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
+
+import 'package:hexcolor/hexcolor.dart';
+
+class singleContestPage extends StatelessWidget {
+  singleContestPage({super.key , required this.contest});
+  final contest ;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('المسابقة الواحدة'),
+          centerTitle: true,
+          backgroundColor: HexColor('#1dbf73')
+       ),
+      body: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Container(
+              child: Text("contest.title")
+          ),
+          ),
+  
+    );
+  }
+}
