@@ -15,7 +15,7 @@
 //       stream: FirebaseFirestore.instance.collection('protfolios').snapshots(),
 //       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
 //         if (snapshot.hasError) {
-//           return Text('حدث خطأ ما');
+//           return Text('error');
 //         }
 
 //         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -228,7 +228,6 @@ class _PortfoliosState extends State<Portfolios> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // هنا يمكنك وضع صورة الـ owner في الجزء العلوي من الـ Container
                       Image.network(
                         data['img'],
                         height: 200,
