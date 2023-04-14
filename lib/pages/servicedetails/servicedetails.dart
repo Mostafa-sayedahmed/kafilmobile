@@ -19,17 +19,6 @@ class Servicedetails extends StatefulWidget {
 class _ServicedetailsState extends State<Servicedetails> {
   @override
   Widget build(BuildContext context) {
-    print(widget.service);
-    List slides = [];
-    List<String> imageUrls = [
-      'https://example.com/image1.jpg',
-      'https://example.com/image2.jpg',
-      'https://example.com/image3.jpg'
-    ];
-    for (var img in widget.service!['imgs']) {
-      slides.add(Image.memory(img));
-    }
-    print(slides);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: HexColor('#1dbf73'),
@@ -44,12 +33,19 @@ class _ServicedetailsState extends State<Servicedetails> {
                 children: [
                   CarouselSlider(
                       items: [
-                        Image.network('${widget.service!['mainImg']}'),
-                        Image.network('${widget.service!['imgs']![0]!}'),
-                        Image.network('${widget.service!['imgs']![1]!}'),
-                        Image.network('${widget.service!['imgs']![2]!}'),
-                        // for (var i in widget.service!['imgs']) Image.network(i),
-                        // Image.network(url),
+                        Image.network(
+                          '${widget.service!['mainImg']}',
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: 200,
+                        ),
+                        for (var i in widget.service!['imgs']!)
+                          Image.network(
+                            i,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: 200,
+                          )
                       ],
                       options: CarouselOptions(
                         autoPlay: true,
@@ -60,12 +56,8 @@ class _ServicedetailsState extends State<Servicedetails> {
                         viewportFraction: 0.95,
                       )),
                   Divider(),
-                  ListView.builder(
-                    itemCount: widget.service!['imgs'].length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Text(widget.service!['imgs'][index].toString());
-                    },
-                  )
+                  Text('الوصف'),
+                  Text('${widget.service!['description']}')
                 ],
               ),
             )
