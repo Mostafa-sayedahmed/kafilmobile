@@ -83,6 +83,7 @@ class _ServicesState extends State<Services> {
                             orderscount: data['orderscount'],
                             isFeatured: data['isfeatured']!,
                             userid: data['userid'],
+                            myservice: data,
                           ));
                         }).toList(),
                       );
@@ -109,6 +110,7 @@ class ServiceCard extends StatelessWidget {
     int? this.price,
     int? this.orderscount = 0,
     bool? this.isFeatured = false,
+    Map<String, dynamic>? this.myservice,
   });
   String? uid;
   String? userid;
@@ -120,6 +122,7 @@ class ServiceCard extends StatelessWidget {
   bool? isFeatured;
   String? username;
   String? userimg;
+  Map<String, dynamic>? myservice;
   @override
   Widget build(BuildContext context) {
     final docRef = firestore.collection("users").doc(userid);
@@ -151,7 +154,7 @@ class ServiceCard extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => Servicedetails(
-                                serviceid: uid,
+                                service: myservice,
                               )));
                 },
                 child: Container(
