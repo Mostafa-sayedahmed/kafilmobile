@@ -41,7 +41,7 @@ class singleContestPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('المسابقة الواحدة'),
+          title: Text('تفاصيل المسابقة'),
           centerTitle: true,
           backgroundColor: HexColor('#1dbf73')
        ),
