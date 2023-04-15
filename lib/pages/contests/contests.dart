@@ -7,7 +7,6 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:kafilmobile/services/ContestService/ContestService.dart';
 // import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
 
-
 import 'package:kafilmobile/pages/contests/singleContest';
 import 'package:kafilmobile/model/ContestModel/constModel.dart';
 
@@ -25,8 +24,6 @@ class contestPage extends StatefulWidget {
 }
 
 class _contestPageState extends State<contestPage> {
-
-
   // bool isLoad = true;
   // List<ConstModel> freelancersBody = [];
   // late Map<String, dynamic> test;
@@ -55,8 +52,7 @@ class _contestPageState extends State<contestPage> {
   //   getFreelancersData();
   // }
 
-   List<Map<String, dynamic>> contestEle = [];
-
+  List<Map<String, dynamic>> contestEle = [];
 
   getcontestData() async {
     contestEle = await contestServices().getAllContests();
@@ -65,8 +61,6 @@ class _contestPageState extends State<contestPage> {
 
     setState(() {});
   }
-
-
 
   @override
   void initState() {
@@ -78,117 +72,127 @@ class _contestPageState extends State<contestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
           title: Text('المسابقات'),
           centerTitle: true,
-          backgroundColor: HexColor('#1dbf73')
-      ),
+          backgroundColor: HexColor('#1dbf73')),
       body: Padding(
           padding: const EdgeInsets.all(12.0),
-          child:
-          Container(
-              child:ListView.builder(
+          child: Container(
+              child: ListView.builder(
                   itemBuilder: (BuildContext context, int index) {
                     print(contestEle[index]);
                     // return SingleContest(contest:contestEle[index]);
                     return SingleContest(
-                        Posts: contestEle[index]["Posts"],
-                        Views: contestEle[index]["Views"],
-                        accepted: contestEle[index]["accepted"],
-                        comment: contestEle[index]["comment"],
-                        completed: contestEle[index]["completed"],
-                        conditions: contestEle[index]["conditions"],
-                        contestDuration: contestEle[index]["contestDuration"],
-                        contestants: contestEle[index]["contestants"],
-                        deliveryDuration: contestEle[index]["deliveryDuration"],
-                        description: contestEle[index]["description"],
-                        firstWinner: contestEle[index]["firstWinner"],
-                        sectionId: contestEle[index]["sectionId"],
-                        skills: contestEle[index]["skills"],
-                        title: contestEle[index]["title"],
-                        userId: contestEle[index]["userId"],
-                        userImg: contestEle[index]["userImg"],
-                        userName: contestEle[index]["userName"],
-                        winnersNum: contestEle[index]["winnersNum"],
+                      Posts: contestEle[index]["Posts"],
+                      Views: contestEle[index]["Views"],
+                      accepted: contestEle[index]["accepted"],
+                      comment: contestEle[index]["comment"],
+                      completed: contestEle[index]["completed"],
+                      conditions: contestEle[index]["conditions"],
+                      contestDuration: contestEle[index]["contestDuration"],
+                      contestants: contestEle[index]["contestants"],
+                      deliveryDuration: contestEle[index]["deliveryDuration"],
+                      description: contestEle[index]["description"],
+                      firstWinner: contestEle[index]["firstWinner"],
+                      sectionId: contestEle[index]["sectionId"],
+                      skills: contestEle[index]["skills"],
+                      title: contestEle[index]["title"],
+                      userId: contestEle[index]["userId"],
+                      userImg: contestEle[index]["userImg"],
+                      userName: contestEle[index]["userName"],
+                      winnersNum: contestEle[index]["winnersNum"],
                     );
                   },
-                    itemCount: contestEle.length-1)
-                  )
-          ),
+                  itemCount: contestEle.length - 1))),
     );
   }
 }
 
 class SingleContest extends StatelessWidget {
+  const SingleContest(
+      {super.key,
+      required this.Posts,
+      required this.Views,
+      required this.accepted,
+      required this.comment,
+      required this.contestDuration,
+      required this.completed,
+      required this.contestants,
+      required this.deliveryDuration,
+      required this.description,
+      required this.firstWinner,
+      required this.sectionId,
+      required this.conditions,
+      required this.skills,
+      required this.title,
+      required this.userId,
+      required this.userImg,
+      required this.userName,
+      required this.winnersNum});
 
-  const SingleContest({super.key , required this.Posts ,required this.Views ,required this.accepted ,required this.comment ,required this.contestDuration, required this.completed ,
-   required this.contestants , required this.deliveryDuration , required this.description , required this.firstWinner ,required this.sectionId , required this.conditions ,
-   required this.skills , required this.title ,required this.userId , required this.userImg , required this.userName , required this.winnersNum});
+  final int Posts;
+  final int Views;
+  final bool accepted;
+  final int comment;
+  final bool completed;
+  final String conditions;
+  final String contestDuration;
+  final int contestants;
+  final String deliveryDuration;
+  final String description;
+  final String firstWinner;
+  final String sectionId;
+  final String skills;
+  final String title;
+  final String userId;
+  final String userImg;
+  final String userName;
+  final String winnersNum;
 
-    final int Posts;
-    final int Views;
-    final bool accepted;
-    final int comment;
-    final bool completed;
-    final String conditions;
-    final String contestDuration;
-    final int contestants;
-    final String deliveryDuration;
-    final String description;
-    final String firstWinner;
-    final String sectionId;
-    final String skills;
-    final String title;
-    final String userId;
-    final String userImg;
-    final String userName;
-    final String winnersNum;
-    
   @override
   Widget build(BuildContext context) {
-    return 
-        Card(
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-              side: BorderSide(color: Colors.white70, width: 1),
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: Colors.white70, width: 1),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  userName,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(width: 16),
+                CircleAvatar(
+                  backgroundImage: NetworkImage(userImg),
+                  radius: 30,
+                ),
+              ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        userName,
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: 16),
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          userImg),
-                        radius: 30,
-                      ), 
-                    ],
-                  ),
-                  SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [              
-                          Text(
-                            sectionId,
-        
-                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                          ),
-                          SizedBox(height: 4),
-                          // 
-                            InkWell( onTap :(){
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => singleContestPage(
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      sectionId,
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                    SizedBox(height: 4),
+                    //
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => singleContestPage(
                                   Posts: Posts,
                                   Views: Views,
                                   accepted: accepted,
@@ -207,114 +211,130 @@ class SingleContest extends StatelessWidget {
                                   userImg: userImg,
                                   userName: userName,
                                   winnersNum: winnersNum,
-                              )));
-                            },
-                              child: Text(
-                                  title,
-                                  style: TextStyle(
-                                      fontSize: 14, fontWeight: FontWeight.bold),
-                                ),
-                            ),
-                        ],
+                                )));
+                      },
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
                       ),
+                    ),
+                  ],
+                ),
+                SizedBox(width: 8),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      Icon(Icons.attach_money, color: Colors.green),
+                      SizedBox(width: 2),
+                      Text(firstWinner, style: TextStyle(color: Colors.grey)),
                       SizedBox(width: 8),
+                      Icon(Icons.emoji_events, color: Colors.green),
                     ],
                   ),
-                  SizedBox(height: 20),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
+                ),
+                completed!
+                    ? Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                         child: Row(
                           children: [
-                            
-                            Icon(Icons.attach_money , color: Colors.green),
-                            SizedBox(width: 2),
-                            Text(firstWinner , style: TextStyle(color: Colors.grey)),
-                            SizedBox(width: 8),
-                            Icon(Icons.emoji_events, color: Colors.green),
+                            Text("مكتمل",
+                                style: TextStyle(color: Colors.white)),
+                            SizedBox(width: 5),
+                            Icon(Icons.check, color: Colors.white),
                           ],
                         ),
-                      ),
-                      completed!
-                              ? Container(
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                color: Colors.green,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Row(
-                                children: [
-                                  Text("مكتمل",
-                                      style: TextStyle(color: Colors.white)),
-                                  SizedBox(width: 5),
-                                  Icon(Icons.check, color: Colors.white),
-                                ],
-                              ),
-                            )
-                              : (
-                              Container(
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                color: Colors.orangeAccent,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Row(
-                                children: [
-                                  Text("بإنتظار إختيار الفائز",
-                                  style: TextStyle(color: Colors.white)),
-                                  SizedBox(width: 5),
-                                  Icon(Icons.mic, color: Colors.white),
-                                ],
-                              ),
-                            )
-                           )
+                      )
+                    : (Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.orangeAccent,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Row(
+                          children: [
+                            Text("بإنتظار إختيار الفائز",
+                                style: TextStyle(color: Colors.white)),
+                            SizedBox(width: 5),
+                            Icon(Icons.mic, color: Colors.white),
+                          ],
+                        ),
+                      ))
+              ],
+            ),
+            SizedBox(height: 20),
+            Container(
+              decoration: BoxDecoration(
+                border: Border(top: BorderSide(color: Colors.grey)),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    children: [
+                      Text('${comment}', style: TextStyle(color: Colors.grey)),
+                      SizedBox(width: 8),
+                      Icon(Icons.chat, color: Colors.grey),
                     ],
                   ),
-                  SizedBox(height: 20),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border(top: BorderSide(color: Colors.grey)),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              '${comment}',
-                              style: TextStyle(color: Colors.grey)),
-                            SizedBox(width: 8),
-                            Icon(Icons.chat, color: Colors.grey),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                             '${Views}',
-                              style: TextStyle(color: Colors.grey)),
-                            SizedBox(width: 8),
-                            Icon(Icons.remove_red_eye, color: Colors.grey),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              '${Posts}',
-                              style: TextStyle(color: Colors.grey)),
-                            SizedBox(width: 8),
-                            Icon(Icons.cloud_upload, color: Colors.grey),
-                          ],
-                        ),
-                      ],
-                    ),
+                  Row(
+                    children: [
+                      Text('${Views}', style: TextStyle(color: Colors.grey)),
+                      SizedBox(width: 8),
+                      Icon(Icons.remove_red_eye, color: Colors.grey),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text('${Posts}', style: TextStyle(color: Colors.grey)),
+                      SizedBox(width: 8),
+                      Icon(Icons.cloud_upload, color: Colors.grey),
+                    ],
                   ),
                 ],
               ),
             ),
-          );
+          ],
+        ),
+      ),
+    );
   }
 }
+
+// class MyWidget extends StatelessWidget {
+//   const MyWidget({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder<String>(
+//         future: FirebaseFirestore.instance.collection('Freelancers').get().then(
+//           (DocumentSnapshot doc) {
+//             Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+
+//             print(data['comment']);
+//             return data['comment'];
+//             // return data['fullname'];
+//           },
+//           onError: (e) => print("Error getting document: $e"),
+//         ),
+//         builder: (context, AsyncSnapshot<String> snapshot) {
+//           if (snapshot.hasData) {
+//             return Text(snapshot.data.toString());
+//           } else {
+//             return CircularProgressIndicator();
+//           }
+//         });
+//   }
+// }
