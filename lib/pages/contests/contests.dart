@@ -5,18 +5,14 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'package:kafilmobile/services/ContestService/ContestService.dart';
-import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
+// import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
 
-// import 'package:kafilmobile/pages/contests/singleContest';
 
 import 'package:kafilmobile/pages/contests/singleContest';
 import 'package:kafilmobile/model/ContestModel/constModel.dart';
 
 import 'package:hexcolor/hexcolor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-// final firestore = FirebaseFirestore.instance;
-// import 'package:app1/view/pages/contestpage/singlecontestPage.dart';
 
 class contestPage extends StatefulWidget {
   const contestPage({super.key});
@@ -191,40 +187,39 @@ class SingleContest extends StatelessWidget {
                           ),
                           SizedBox(height: 4),
                           // 
-                            // InkWell( onTap :(){
-                            //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => singleContestPage(
-                               
-                            //       // Posts: contestEle[index]["Posts"],
-                            //       // Views: contestEle[index]["Views"],
-                            //       // accepted: contestEle[index]["accepted"],
-                            //       // comment: contestEle[index]["comment"],
-                            //       // completed: contestEle[index]["completed"],
-                            //       // conditions: contestEle[index]["conditions"],
-                            //       // contestDuration: contestEle[index]["contestDuration"],
-                            //       // contestants: contestEle[index]["contestants"],
-                            //       // deliveryDuration: contestEle[index]["deliveryDuration"],
-                            //       // description: contestEle[index]["description"],
-                            //       // firstWinner: contestEle[index]["firstWinner"],
-                            //       // sectionId: contestEle[index]["sectionId"],
-                            //       // skills: contestEle[index]["skills"],
-                            //       // title: contestEle[index]["title"],
-                            //       // userId: contestEle[index]["userId"],
-                            //       // userImg: contestEle[index]["userImg"],
-                            //       // userName: contestEle[index]["userName"],
-                            //       // winnersNum: contestEle[index]["winnersNum"],
-                            //   )));
-                            // },
-                            //   child: Text(
-                            //       title,
-                            //       style: TextStyle(
-                            //           fontSize: 14, fontWeight: FontWeight.bold),
-                            //     ),
-                            // ),
-                          Text(
-                            title,
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          ),
+                            InkWell( onTap :(){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => singleContestPage(
+                                  Posts: Posts,
+                                  Views: Views,
+                                  accepted: accepted,
+                                  comment: comment,
+                                  completed: completed,
+                                  conditions: conditions,
+                                  contestDuration: contestDuration,
+                                  contestants: contestants,
+                                  deliveryDuration: deliveryDuration,
+                                  description: description,
+                                  firstWinner: firstWinner,
+                                  sectionId: sectionId,
+                                  skills: skills,
+                                  title: title,
+                                  userId: userId,
+                                  userImg: userImg,
+                                  userName: userName,
+                                  winnersNum: winnersNum,
+                              )));
+                            },
+                              child: Text(
+                                  title,
+                                  style: TextStyle(
+                                      fontSize: 14, fontWeight: FontWeight.bold),
+                                ),
+                            ),
+                          // Text(
+                          //   title,
+                          //   style: TextStyle(
+                          //       fontSize: 14, fontWeight: FontWeight.bold),
+                          // ),
                         ],
                       ),
                       SizedBox(width: 8),

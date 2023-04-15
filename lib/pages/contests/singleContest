@@ -3,21 +3,15 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-
 import 'package:kafilmobile/services/ContestService/ContestService.dart';
 import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
-
 import 'package:hexcolor/hexcolor.dart';
 
 class singleContestPage extends StatelessWidget {
-  // singleContestPage({super.key , required this.cont, required Postsest});
-  // final contest ;
 
   const singleContestPage({super.key , required this.Posts ,required this.Views ,required this.accepted ,required this.comment ,required this.contestDuration, required this.completed ,
    required this.contestants , required this.deliveryDuration , required this.description , required this.firstWinner ,required this.sectionId , required this.conditions ,
    required this.skills , required this.title ,required this.userId , required this.userImg , required this.userName , required this.winnersNum});
-  // final ConstModel contest ;
-  // final contest ;
     final int Posts;
     final int Views;
     final bool accepted;
@@ -48,7 +42,7 @@ class singleContestPage extends StatelessWidget {
       body: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Container(
-              child: Text("contest.title")
+              child: Text(title);
           ),
           ),
   
