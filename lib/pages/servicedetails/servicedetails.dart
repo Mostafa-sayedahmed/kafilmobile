@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:kafilmobile/colors/colors.dart';
 
 final firestore = FirebaseFirestore.instance;
 
@@ -17,8 +18,12 @@ class Servicedetails extends StatefulWidget {
 }
 
 class _ServicedetailsState extends State<Servicedetails> {
+  bool checked = false;
+  int counter = 1;
   @override
   Widget build(BuildContext context) {
+    int totalprice = widget.service!['price'];
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: HexColor('#1dbf73'),
@@ -31,6 +36,12 @@ class _ServicedetailsState extends State<Servicedetails> {
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
+                  Row(
+                    children: [
+                      Text('القسم:'),
+                      Text('${widget.service!['category']}'),
+                    ],
+                  ),
                   CarouselSlider(
                       items: [
                         Image.network(
@@ -39,13 +50,16 @@ class _ServicedetailsState extends State<Servicedetails> {
                           width: double.infinity,
                           height: 200,
                         ),
-                        for (var i in widget.service!['imgs']!)
-                          Image.network(
-                            i,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: 200,
-                          )
+                        if (widget.service!['imgs'] != null)
+                          for (var i in widget.service!['imgs']!)
+                            Image.network(
+                              i,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: 200,
+                            )
+                        else
+                          Text('no image'),
                       ],
                       options: CarouselOptions(
                         autoPlay: true,
@@ -53,11 +67,144 @@ class _ServicedetailsState extends State<Servicedetails> {
                         autoPlayInterval: Duration(seconds: 3),
                         autoPlayAnimationDuration: Duration(milliseconds: 800),
                         scrollDirection: Axis.horizontal,
-                        viewportFraction: 0.95,
+                        viewportFraction: 1,
                       )),
                   Divider(),
-                  Text('الوصف'),
-                  Text('${widget.service!['description']}')
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          'الوصف',
+                          style: TextStyle(fontSize: 16),
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text('${widget.service!['description']}'),
+                  Divider(),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15.0, vertical: 5),
+                      child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black38),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('شراء'),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                        color: HexColor('#1dbf73'),
+                                        onPressed: () {
+                                          setState(() {
+                                            counter >= 10 ? 10 : counter++;
+                                          });
+                                        },
+                                        icon: Icon(Icons.add)),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    Text(
+                                      '${totalprice * counter} \$',
+                                      style: TextStyle(
+                                        color: HexColor('#1dbf73'),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    IconButton(
+                                        color: HexColor('#1dbf73'),
+                                        onPressed: () {
+                                          setState(() {
+                                            counter <= 1 ? 1 : counter--;
+                                          });
+                                        },
+                                        icon: Icon(Icons.remove)),
+                                  ],
+                                )
+                              ]))),
+                  Divider(),
+                  if (widget.service!['addons'].length > 0) Text('الإضافات'),
+                  for (var i in widget.service!['addons']!)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15.0, vertical: 5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black38),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                Text('تفاصيل الاضافة',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13)),
+                                Text(i['addonTitle']!.toString()),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  'السعر',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13),
+                                ),
+                                Text(
+                                  i['addonPrice']!.toString() + ' \$',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: HexColor('#1dbf73')),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              children: [
+                                Text('مدة التوصيل',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13)),
+                                Text(i['addonDeliveryDuration']!.toString() +
+                                    " يوم اضافي "),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Checkbox(
+                                value: checked,
+                                onChanged: (newvalue) {
+                                  print(newvalue);
+                                  setState(() {
+                                    checked = newvalue!;
+                                  });
+                                }),
+                          ],
+                        ),
+                      ),
+                    ),
+                  SizedBox(
+                    height: 20,
+                  ),
                 ],
               ),
             )
