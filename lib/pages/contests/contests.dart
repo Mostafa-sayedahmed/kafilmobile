@@ -14,6 +14,9 @@ import 'package:kafilmobile/model/ContestModel/constModel.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// ignore: depend_on_referenced_packages
+import 'package:flutter_svg/flutter_svg.dart';
+
 class contestPage extends StatefulWidget {
   const contestPage({super.key});
 
@@ -117,13 +120,11 @@ class _contestPageState extends State<contestPage> {
 }
 
 class SingleContest extends StatelessWidget {
-  // const SingleContest({super.key , required this.contest});
 
-    const SingleContest({super.key , required this.Posts ,required this.Views ,required this.accepted ,required this.comment ,required this.contestDuration, required this.completed ,
+  const SingleContest({super.key , required this.Posts ,required this.Views ,required this.accepted ,required this.comment ,required this.contestDuration, required this.completed ,
    required this.contestants , required this.deliveryDuration , required this.description , required this.firstWinner ,required this.sectionId , required this.conditions ,
    required this.skills , required this.title ,required this.userId , required this.userImg , required this.userName , required this.winnersNum});
-  // final ConstModel contest ;
-  // final contest ;
+
     final int Posts;
     final int Views;
     final bool accepted;
@@ -168,10 +169,8 @@ class SingleContest extends StatelessWidget {
                       CircleAvatar(
                         backgroundImage: NetworkImage(
                           userImg),
-                            // "https://images.rawpixel.com/image_png_1000/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcGQxMDMtbWlzY3RoZW1ldDAwMTQ4YS1pbWFnZS5wbmc.png"),
                         radius: 30,
-                      
-                      ),
+                      ), 
                     ],
                   ),
                   SizedBox(height: 8),
@@ -180,9 +179,10 @@ class SingleContest extends StatelessWidget {
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
+                        children: [              
                           Text(
                             sectionId,
+        
                             style: TextStyle(fontSize: 14, color: Colors.grey),
                           ),
                           SizedBox(height: 4),
@@ -215,11 +215,6 @@ class SingleContest extends StatelessWidget {
                                       fontSize: 14, fontWeight: FontWeight.bold),
                                 ),
                             ),
-                          // Text(
-                          //   title,
-                          //   style: TextStyle(
-                          //       fontSize: 14, fontWeight: FontWeight.bold),
-                          // ),
                         ],
                       ),
                       SizedBox(width: 8),
@@ -243,21 +238,39 @@ class SingleContest extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          children: [
-                            Text("First Text",
-                                style: TextStyle(color: Colors.white)),
-                            SizedBox(width: 5),
-                            Icon(Icons.check, color: Colors.white),
-                          ],
-                        ),
-                      ),
+                      completed!
+                              ? Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Row(
+                                children: [
+                                  Text("مكتمل",
+                                      style: TextStyle(color: Colors.white)),
+                                  SizedBox(width: 5),
+                                  Icon(Icons.check, color: Colors.white),
+                                ],
+                              ),
+                            )
+                              : (
+                              Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.orangeAccent,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Row(
+                                children: [
+                                  Text("بإنتظار إختيار الفائز",
+                                  style: TextStyle(color: Colors.white)),
+                                  SizedBox(width: 5),
+                                  Icon(Icons.mic, color: Colors.white),
+                                ],
+                              ),
+                            )
+                           )
                     ],
                   ),
                   SizedBox(height: 20),
