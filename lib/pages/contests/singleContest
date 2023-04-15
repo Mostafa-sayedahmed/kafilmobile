@@ -10,8 +10,32 @@ import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class singleContestPage extends StatelessWidget {
-  singleContestPage({super.key , required this.contest});
-  final contest ;
+  // singleContestPage({super.key , required this.cont, required Postsest});
+  // final contest ;
+
+  const singleContestPage({super.key , required this.Posts ,required this.Views ,required this.accepted ,required this.comment ,required this.contestDuration, required this.completed ,
+   required this.contestants , required this.deliveryDuration , required this.description , required this.firstWinner ,required this.sectionId , required this.conditions ,
+   required this.skills , required this.title ,required this.userId , required this.userImg , required this.userName , required this.winnersNum});
+  // final ConstModel contest ;
+  // final contest ;
+    final int Posts;
+    final int Views;
+    final bool accepted;
+    final int comment;
+    final bool completed;
+    final String conditions;
+    final String contestDuration;
+    final int contestants;
+    final String deliveryDuration;
+    final String description;
+    final String firstWinner;
+    final String sectionId;
+    final String skills;
+    final String title;
+    final String userId;
+    final String userImg;
+    final String userName;
+    final String winnersNum;
 
   @override
   Widget build(BuildContext context) {
@@ -31,3 +55,4 @@ class singleContestPage extends StatelessWidget {
     );
   }
 }
+
