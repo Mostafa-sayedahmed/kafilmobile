@@ -3,11 +3,12 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:kafilmobile/pages/contests/singleContest.dart';
 
 import 'package:kafilmobile/services/ContestService/ContestService.dart';
 // import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
 
-import 'package:kafilmobile/pages/contests/singleContest';
+// import 'package:kafilmobile/pages/contests/singleContest';
 import 'package:kafilmobile/model/ContestModel/constModel.dart';
 
 import 'package:hexcolor/hexcolor.dart';
