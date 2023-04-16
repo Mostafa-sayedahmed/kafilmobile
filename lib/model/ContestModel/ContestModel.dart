@@ -10,7 +10,7 @@ String contestnetworkmodelToJson(Contestnetworkmodel data) => json.encode(data.t
 
 class Contestnetworkmodel {
     Contestnetworkmodel({
-        // required this.id,
+        required this.id,
         required this.posts,
         required this.views,
         required this.accepted,
@@ -31,7 +31,7 @@ class Contestnetworkmodel {
         required this.winnersNum,
     });
 
-    // String id;
+    String id;
     int posts;
     int views;
     bool accepted;
@@ -52,7 +52,7 @@ class Contestnetworkmodel {
     String winnersNum;
 
     factory Contestnetworkmodel.fromJson(Map<String, dynamic> json) => Contestnetworkmodel(
-        // id: json["id"],
+        id: json["id"],
         posts: json["Posts"],
         views: json["Views"],
         accepted: json["accepted"],
@@ -74,7 +74,7 @@ class Contestnetworkmodel {
     );
 
     Map<String, dynamic> toJson() => {
-        // "id": id,
+        "id": id,
         "Posts": posts,
         "Views": views,
         "accepted": accepted,

@@ -29,7 +29,8 @@ class singleContestPage extends StatelessWidget {
       required this.userId,
       required this.userImg,
       required this.userName,
-      required this.winnersNum});
+      required this.winnersNum,
+      required this.id});
   final int Posts;
   final int Views;
   final bool accepted;
@@ -48,6 +49,7 @@ class singleContestPage extends StatelessWidget {
   final String userImg;
   final String userName;
   final String winnersNum;
+   final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -117,23 +119,26 @@ class singleContestPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text('الشروط',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey)),
-                    SizedBox(width: 8),
-                    Icon(Icons.list, color: Colors.grey),
-                  ],
-                ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text('الشروط',
+                          style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey)),
+                      SizedBox(width: 8),
+                      Icon(Icons.list, color: Colors.grey),
+                    ],
+                  ),
+             
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(conditions),
+                    Expanded(
+                      child: Text(conditions),
+                    ),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -151,6 +156,8 @@ class singleContestPage extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 // SingleComment(contestId: '9SIMaDjnSuegH0CRjdMc'),
+
+                SingleComment(contestId:id),
               ],
             ),
           ),
@@ -160,92 +167,65 @@ class singleContestPage extends StatelessWidget {
   }
 }
 
-// class SingleComment extends StatelessWidget {
-//   SingleComment({super.key, required this.contestId});
 
-//   final String contestId;
+class SingleComment extends StatelessWidget {
+  SingleComment({super.key, required this.contestId });
 
-//   final firestore = FirebaseFirestore.instance;
+  String? contestId;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final docRef = firestore
-//         .collection('contestsComments')
-//         .where('contestId', isEqualTo: contestId);
+  final firestore = FirebaseFirestore.instance;
 
-//     print(docRef);
+  @override
+  Widget build(BuildContext context) {
+    final docRef = firestore
+        .collection('contestsComments')
+        .where('contestId', isEqualTo: contestId);
 
-//     return FutureBuilder<FutureOr<String>>(
-//         future: docRef.get().then((DocumentSnapshot doc) {
-//               Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
-//               print(data['comment']);
-//               var comment;
-//               comment == null ? 'no comment' : data['comment'];
-//               // return [
-//               //   data['comment'] == null ? 'no comment' : data['comment'],
-//               //   data['userImg'] == null ? 'no comment' : data['userImg'],
-//               //   data['userName'] == null ? 'no comment' : data['userName'],
-//               // ];
+return FutureBuilder<List<dynamic>>(
+  future: docRef.get().then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+    if (querySnapshot.docs.isNotEmpty) {
+      Map<String, dynamic> data = querySnapshot.docs[0].data();
+      
+      var comment = data['comment'] == null ? 'no comment' : data['comment'];
+      var userImg = data['userImg'] == null ? 'no comment' : data['userImg']; 
+      var userName = data['userName'] == null ? 'no comment' : data['userName'];
+      return [
+        comment,
+        userImg,
+        userName,
+      ];
+    } else {
+      return ['no comment'];
+    }
+  }),
+  builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+    if (snapshot.hasData && snapshot.data!.length >= 2) {
+      return Column(
+        children: [
+           Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      snapshot.data![2],
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(width: 16),
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(snapshot.data![1]),
+                      radius: 30,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Text(snapshot.data![0]),
+        ],
+      );
+    } else {
+      return Text('لا يوجد تعليقات');
+    }
+  },
+);
 
-//               return comment;
-//             } as FutureOr<String> Function(
-//                 QuerySnapshot<Map<String, dynamic>> value)),
-//         builder: (context, AsyncSnapshot<FutureOr<String>> snapshot) {
-//           if (snapshot.hasData) {
-//             print(snapshot.data);
-//             return Text('data');
-//           } else {
-//             return Text('no data');
-//           }
-//         });
-//   }
-// }
-
-// class SingleComment extends StatelessWidget {
-//   SingleComment({super.key, required this.contestId , required this.comment});
-
-//   final String contestId;
-//   final String comment;
-//   final String userName;
-//   final String userImg;
-
-//   final firestore = FirebaseFirestore.instance;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final docRef = firestore
-//         .collection('contestsComments')
-//         .where('contestId', isEqualTo: contestId);
-
-//     print(docRef);
-
-//     return FutureBuilder<List>(
-//         future: docRef.get().then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
-//           if (querySnapshot.docs.isNotEmpty) {
-//             Map<String, dynamic> data = querySnapshot.docs[0].data();
-//             print(data['comment']);
-//             print(data['userImg']);
-//             print(data['userName']);
-//             var comment;
-//               comment == null ? 'no comment' : data['comment'];
-//               userImg == null ? 'no comment' : data['userImg']; 
-//               userName == null ? 'no comment' : data['userName'];
-//             return [
-//                 data['comment'] == null ? 'no comment' : data['comment'],
-//                 data['userImg'] == null ? 'no comment' : data['userImg'],  
-//                  data['userName'] == null ? 'no comment' : data['userName'],
-//              ];
-//           } else {
-//             return 'no comment';
-//           }
-//         }),
-//         builder: (context, AsyncSnapshot<String> snapshot) {
-//           if (snapshot.hasData) {
-//             print(snapshot.data);
-//             return Text('data');
-//           } else {
-//             return Text('no data');
-//           }
-//         });
-//   }
-// }
+}
+}

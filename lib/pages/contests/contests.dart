@@ -1,20 +1,11 @@
 import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:kafilmobile/pages/contests/singleContest.dart';
-
 import 'package:kafilmobile/services/ContestService/ContestService.dart';
-// import 'package:kafilmobile/model/ContestModel/ContestModel.dart';
-
-// import 'package:kafilmobile/pages/contests/singleContest';
-import 'package:kafilmobile/model/ContestModel/constModel.dart';
-
 import 'package:hexcolor/hexcolor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-// ignore: depend_on_referenced_packages
 import 'package:flutter_svg/flutter_svg.dart';
 
 class contestPage extends StatefulWidget {
@@ -26,47 +17,26 @@ class contestPage extends StatefulWidget {
 
 class _contestPageState extends State<contestPage> {
   // bool isLoad = true;
-  // List<ConstModel> freelancersBody = [];
-  // late Map<String, dynamic> test;
-  // List itemList = [];
-  // final _firestore = FirebaseFirestore.instance;
-  // Future<void> getDataContestData() async {
-  //   final Freelancers = await _firestore.collection('Freelancers').get();
-  //   for (var freelancer in Freelancers.docs) {
-  //     itemList.add(freelancer.data());
-  //   }
-  //   //  print(itemList[1]['name']);
-  // }
 
-  // List DATA = [];
-  // getFreelancersData() async {
-  //   DATA = await FreelancerService().FreelancerData();
+  // getContestsData() async {
+
   //   if (DATA != []) {
   //     isLoad = false;
   //   }
   //   setState(() {});
   // }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getFreelancersData();
-  // }
 
   List<Map<String, dynamic>> contestEle = [];
 
   getcontestData() async {
     contestEle = await contestServices().getAllContests();
-
-    print(contestEle);
-
     setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-
     getcontestData();
   }
 
@@ -83,7 +53,6 @@ class _contestPageState extends State<contestPage> {
               child: ListView.builder(
                   itemBuilder: (BuildContext context, int index) {
                     print(contestEle[index]);
-                    // return SingleContest(contest:contestEle[index]);
                     return SingleContest(
                       Posts: contestEle[index]["Posts"],
                       Views: contestEle[index]["Views"],
@@ -103,6 +72,7 @@ class _contestPageState extends State<contestPage> {
                       userImg: contestEle[index]["userImg"],
                       userName: contestEle[index]["userName"],
                       winnersNum: contestEle[index]["winnersNum"],
+                      id: contestEle[index]["id"],
                     );
                   },
                   itemCount: contestEle.length - 1))),
@@ -130,7 +100,8 @@ class SingleContest extends StatelessWidget {
       required this.userId,
       required this.userImg,
       required this.userName,
-      required this.winnersNum});
+      required this.winnersNum,
+      required this.id});
 
   final int Posts;
   final int Views;
@@ -150,6 +121,7 @@ class SingleContest extends StatelessWidget {
   final String userImg;
   final String userName;
   final String winnersNum;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -212,6 +184,7 @@ class SingleContest extends StatelessWidget {
                                   userImg: userImg,
                                   userName: userName,
                                   winnersNum: winnersNum,
+                                  id:id,
                                 )));
                       },
                       child: Text(
@@ -314,28 +287,3 @@ class SingleContest extends StatelessWidget {
   }
 }
 
-// class MyWidget extends StatelessWidget {
-//   const MyWidget({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder<String>(
-//         future: FirebaseFirestore.instance.collection('Freelancers').get().then(
-//           (DocumentSnapshot doc) {
-//             Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
-
-//             print(data['comment']);
-//             return data['comment'];
-//             // return data['fullname'];
-//           },
-//           onError: (e) => print("Error getting document: $e"),
-//         ),
-//         builder: (context, AsyncSnapshot<String> snapshot) {
-//           if (snapshot.hasData) {
-//             return Text(snapshot.data.toString());
-//           } else {
-//             return CircularProgressIndicator();
-//           }
-//         });
-//   }
-// }

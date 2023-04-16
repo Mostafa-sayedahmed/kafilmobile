@@ -10,7 +10,7 @@ class contestServices {
     QuerySnapshot contestQuerySnapshot = await firestore.collection('contests').get();
 
     List<Map<String, dynamic>> contests = contestQuerySnapshot.docs.map((document) {
-      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      Map<String, dynamic> data = {'id': document.id, ...document.data() as Map<String, dynamic>};
       Contestnetworkmodel contest = Contestnetworkmodel.fromJson(data);
       return contest.toJson();
     }).toList();
