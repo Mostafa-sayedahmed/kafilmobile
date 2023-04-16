@@ -181,8 +181,6 @@ class singleContestPage extends StatelessWidget {
 //               print(data['comment']);
 //               var comment;
 //               comment == null ? 'no comment' : data['comment'];
-//               // userImg == null ? 'no comment' : data['userImg'];
-//               // userName == null ? 'no comment' : data['userName'];
 //               // return [
 //               //   data['comment'] == null ? 'no comment' : data['comment'],
 //               //   data['userImg'] == null ? 'no comment' : data['userImg'],
@@ -193,6 +191,55 @@ class singleContestPage extends StatelessWidget {
 //             } as FutureOr<String> Function(
 //                 QuerySnapshot<Map<String, dynamic>> value)),
 //         builder: (context, AsyncSnapshot<FutureOr<String>> snapshot) {
+//           if (snapshot.hasData) {
+//             print(snapshot.data);
+//             return Text('data');
+//           } else {
+//             return Text('no data');
+//           }
+//         });
+//   }
+// }
+
+// class SingleComment extends StatelessWidget {
+//   SingleComment({super.key, required this.contestId , required this.comment});
+
+//   final String contestId;
+//   final String comment;
+//   final String userName;
+//   final String userImg;
+
+//   final firestore = FirebaseFirestore.instance;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final docRef = firestore
+//         .collection('contestsComments')
+//         .where('contestId', isEqualTo: contestId);
+
+//     print(docRef);
+
+//     return FutureBuilder<List>(
+//         future: docRef.get().then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+//           if (querySnapshot.docs.isNotEmpty) {
+//             Map<String, dynamic> data = querySnapshot.docs[0].data();
+//             print(data['comment']);
+//             print(data['userImg']);
+//             print(data['userName']);
+//             var comment;
+//               comment == null ? 'no comment' : data['comment'];
+//               userImg == null ? 'no comment' : data['userImg']; 
+//               userName == null ? 'no comment' : data['userName'];
+//             return [
+//                 data['comment'] == null ? 'no comment' : data['comment'],
+//                 data['userImg'] == null ? 'no comment' : data['userImg'],  
+//                  data['userName'] == null ? 'no comment' : data['userName'],
+//              ];
+//           } else {
+//             return 'no comment';
+//           }
+//         }),
+//         builder: (context, AsyncSnapshot<String> snapshot) {
 //           if (snapshot.hasData) {
 //             print(snapshot.data);
 //             return Text('data');
