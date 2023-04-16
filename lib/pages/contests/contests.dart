@@ -156,12 +156,8 @@ class SingleContest extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      sectionId,
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
-                    ),
+                    SectionName(sectionId:sectionId),
                     SizedBox(height: 4),
-                    //
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -287,3 +283,43 @@ class SingleContest extends StatelessWidget {
   }
 }
 
+class SectionName extends StatefulWidget {
+  const SectionName({super.key, required this.sectionId});
+
+  final String sectionId;
+
+  @override
+  _SectionNameState createState() => _SectionNameState();
+}
+
+class _SectionNameState extends State<SectionName> {
+  final firestore = FirebaseFirestore.instance;
+
+  String _sectionName = 'no name';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchSectionName();
+  }
+
+  Future<void> _fetchSectionName() async {
+    final docRef = firestore.collection('contestSections').doc(widget.sectionId);
+    final docSnapshot = await docRef.get();
+
+    if (docSnapshot.exists) {
+      final data = docSnapshot.data();
+      setState(() {
+        _sectionName = data!['name'] ?? 'no name';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+  return Text(
+    _sectionName,
+    style: TextStyle(fontSize: 14, color: Colors.grey),
+    );
+  }
+}

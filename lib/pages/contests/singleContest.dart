@@ -155,8 +155,6 @@ class singleContestPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 20),
-                // SingleComment(contestId: '9SIMaDjnSuegH0CRjdMc'),
-
                 SingleComment(contestId:id),
               ],
             ),
