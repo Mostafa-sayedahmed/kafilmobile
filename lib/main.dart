@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:kafilmobile/pages/login/login.dart';
 import 'package:kafilmobile/pages/navbar/navbar.dart';
+import 'package:kafilmobile/pages/projects/projects.dart';
 import 'package:kafilmobile/pages/register/register.dart';
 import 'firebase_options.dart';
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Navbar(),
+      home: projects(),
       textDirection: TextDirection.rtl,
     );
   }
