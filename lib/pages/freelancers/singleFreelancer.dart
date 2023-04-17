@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:kafilmobile/pages/freelancers/freelancers.dart';
 import 'package:kafilmobile/pages/home/home.dart';
 
 class SingleFreelancer extends StatelessWidget {
-  const SingleFreelancer({super.key, required this.freelancerName,required this.freelancerImg, required this.freelancerTitle,});
+  const SingleFreelancer({
+    super.key,
+    required this.freelancerName,
+    required this.freelancerImg,
+    required this.freelancerTitle,
+  });
   final freelancerName;
   final freelancerImg;
   final freelancerTitle;
@@ -13,7 +19,7 @@ class SingleFreelancer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.lightGreen,
+          backgroundColor: HexColor('#1dbf73'),
           title: Row(
             children: [
               Icon(
@@ -32,7 +38,8 @@ class SingleFreelancer extends StatelessWidget {
             CircleAvatar(
               child: IconButton(
                   onPressed: () {
-                     Navigator.push(context,MaterialPageRoute(builder: (context) => Homepage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Homepage()));
                   },
                   icon: Icon(
                     Icons.home_filled,
@@ -58,15 +65,16 @@ class SingleFreelancer extends StatelessWidget {
             child: Container(
               child: ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
-                  return FREELANCER(name: freelancerName, title: freelancerTitle, img: freelancerImg);
+                  return FREELANCER(
+                      name: freelancerName,
+                      title: freelancerTitle,
+                      img: freelancerImg);
                 },
                 itemCount: 1,
               ),
             )));
   }
 }
-
-
 
 class FREELANCER extends StatelessWidget {
   const FREELANCER({
@@ -86,9 +94,9 @@ class FREELANCER extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-             ListTile(
+            ListTile(
               leading: CircleAvatar(
-               backgroundImage: NetworkImage(img),
+                backgroundImage: NetworkImage(img),
               ),
               title: Text(name),
               subtitle: Text(title),
@@ -99,7 +107,10 @@ class FREELANCER extends StatelessWidget {
                 const SizedBox(width: 8),
                 TextButton(
                   child: const Text('  BACK TO OTHER FREELANCERS !'),
-                  onPressed: () {Navigator.push(context,MaterialPageRoute(builder: (context) => Freelancers()));},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Freelancers()));
+                  },
                 ),
                 const SizedBox(width: 8),
               ],
