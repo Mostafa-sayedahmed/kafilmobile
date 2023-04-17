@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:kafilmobile/pages/home/home.dart';
+import 'package:kafilmobile/pages/portofolio/portofolio.dart';
 import 'package:kafilmobile/pages/services/services.dart';
 
 class Navbar extends StatefulWidget {
@@ -16,11 +17,11 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
   int currentindex = 3;
   List<Widget> pages = [
+    Portfolios(),
     Homepage(),
     Services(),
     Homepage(),
     Services(),
-    Homepage(),
   ];
   @override
   Widget build(BuildContext context) {
