@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:kafilmobile/pages/login/login.dart';
 
@@ -27,7 +30,7 @@ class _RegisterpageState extends State<Registerpage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Register'),
-        backgroundColor: HexColor("#EA54af"),
+        backgroundColor: HexColor("#00bf8b"),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -36,9 +39,12 @@ class _RegisterpageState extends State<Registerpage> {
             child: Expanded(
               child: Column(
                 children: [
-                  Image(
-                    width: 200,
-                    image: AssetImage('./lib/assets/userregisterpng.png'),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: SvgPicture.asset(
+                      "./lib/assets/images/register-now.svg",
+                      width: 300,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -180,24 +186,46 @@ class _RegisterpageState extends State<Registerpage> {
                                   FirebaseAuth.instance.currentUser!
                                       .updateDisplayName(
                                           _usernamefield.currentState!.value);
+
+                                  FirebaseAuth.instance.currentUser!.updatePhotoURL(
+                                      "https://kafiil.com/modules/user/images/user.svg");
+
+                                  // .updateDisplayName(
+                                  //     _usernamefield.currentState!.value);
+
                                   await FirebaseAuth.instance.currentUser
                                       ?.sendEmailVerification();
 
+                                  print(
+                                      'Register Success!, You can now Login.');
+                                  await firestore
+                                      .collection("users")
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .set({
+                                        'uid': FirebaseAuth
+                                            .instance.currentUser!.uid,
+                                        'fullname':
+                                            _usernamefield.currentState!.value,
+                                        'email':
+                                            _emailfield.currentState!.value,
+                                        'isAdmin': false,
+                                        'imgUrl':
+                                            'https://kafiil.com/modules/user/images/user.svg'
+                                      })
+                                      .then((value) =>
+                                          {print('User added to database.')})
+                                      .catchError(
+                                          (err) => {print(err.message)});
                                   const snackBar = SnackBar(
                                     backgroundColor: Colors.greenAccent,
                                     content: Text(
                                         'Register sucess, You can now login!'),
                                   );
-                                  print(
-                                      'Register Success!, You can now Login.');
-                                  firestore
-                                      .collection("users")
-                                      .doc(FirebaseAuth
-                                          .instance.currentUser!.uid)
-                                      .collection('todolist');
-                                  print(FirebaseAuth.instance.currentUser!.uid);
-                                  FirebaseAuth.instance.signOut();
-                                  print(FirebaseAuth.instance.currentUser!.uid);
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                  _registerform.currentState!.reset();
+
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -210,6 +238,9 @@ class _RegisterpageState extends State<Registerpage> {
                                       content: Text(
                                           'Register Faild,The password provided is too weak, Please try again!'),
                                     );
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                    _registerform.currentState!.reset();
                                   } else if (e.code == 'email-already-in-use') {
                                     print(
                                         'The account already exists for that email.');
@@ -227,7 +258,7 @@ class _RegisterpageState extends State<Registerpage> {
                               }
                             },
                             style: TextButton.styleFrom(
-                                backgroundColor: HexColor('#FB2576'),
+                                backgroundColor: HexColor('#00bf8b'),
                                 foregroundColor: Colors.white,
                                 padding: EdgeInsets.only(
                                     left: 50, right: 50, top: 20, bottom: 20),
