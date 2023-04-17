@@ -18,11 +18,19 @@ class Servicedetails extends StatefulWidget {
 }
 
 class _ServicedetailsState extends State<Servicedetails> {
-  bool checked = false;
+  List checked = [
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
+
   int counter = 1;
   @override
   Widget build(BuildContext context) {
-    int totalprice = widget.service!['price'];
+    int serviceprice = widget.service!['price'];
+    int totalprice = widget.service!['price'] * counter;
 
     return Scaffold(
         appBar: AppBar(
@@ -110,7 +118,7 @@ class _ServicedetailsState extends State<Servicedetails> {
                                       width: 15,
                                     ),
                                     Text(
-                                      '${totalprice * counter} \$',
+                                      '${totalprice} \$',
                                       style: TextStyle(
                                         color: HexColor('#1dbf73'),
                                         fontWeight: FontWeight.bold,
@@ -145,6 +153,8 @@ class _ServicedetailsState extends State<Servicedetails> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Text((widget.service!['addons']!.indexOf(i) + 1)
+                                .toString()),
                             Column(
                               children: [
                                 Text('تفاصيل الاضافة',
@@ -191,11 +201,15 @@ class _ServicedetailsState extends State<Servicedetails> {
                               width: 20,
                             ),
                             Checkbox(
-                                value: checked,
+                                value: checked[
+                                    widget.service!['addons']!.indexOf(i)],
                                 onChanged: (newvalue) {
-                                  print(newvalue);
                                   setState(() {
-                                    checked = newvalue!;
+                                    checked[widget.service!['addons']!
+                                        .indexOf(i)] = newvalue!;
+                                    // serviceprice += 5;
+                                    totalprice = (serviceprice * counter) + 6;
+                                    print(totalprice);
                                   });
                                 }),
                           ],
