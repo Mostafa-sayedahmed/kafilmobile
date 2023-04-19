@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -39,11 +38,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-
-
-      home: Navbar(),
+      home: LoginPage(),
       textDirection: TextDirection.rtl,
-
     );
   }
 }
