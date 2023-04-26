@@ -22,43 +22,12 @@ class SingleFreelancer extends StatelessWidget {
           backgroundColor: HexColor('#1dbf73'),
           title: Row(
             children: [
-              Icon(
-                Icons.person,
-                color: Colors.black,
-              ),
               SizedBox(width: 25),
               Text(
                 'Single Freelancer',
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
               )
             ],
           ),
-          actions: [
-            CircleAvatar(
-              child: IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Homepage()));
-                  },
-                  icon: Icon(
-                    Icons.home_filled,
-                    color: Colors.black,
-                  )),
-              backgroundColor: Colors.grey[100],
-            ),
-            SizedBox(width: 10),
-            CircleAvatar(
-                child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.download,
-                      color: Colors.black,
-                    )),
-                backgroundColor: Colors.grey[100]),
-            SizedBox(width: 10)
-          ],
-          elevation: 0,
         ),
         body: Padding(
             padding: const EdgeInsets.all(8.0),

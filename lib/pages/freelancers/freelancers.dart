@@ -51,6 +51,8 @@ class _FreelancersState extends State<Freelancers> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
+
           backgroundColor: HexColor('#1dbf73'),
           title: Row(
             children: [

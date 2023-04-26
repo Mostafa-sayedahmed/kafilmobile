@@ -220,6 +220,7 @@ class _PortfoliosState extends State<Portfolios> {
 
         return Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: Text("الأعمال"),
             backgroundColor: HexColor('#1dbf73'),
           ),

@@ -26,7 +26,6 @@ class _contestPageState extends State<contestPage> {
   //   setState(() {});
   // }
 
-
   List<Map<String, dynamic>> contestEle = [];
 
   getcontestData() async {
@@ -44,6 +43,7 @@ class _contestPageState extends State<contestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text('المسابقات'),
           centerTitle: true,
           backgroundColor: HexColor('#1dbf73')),
@@ -156,7 +156,7 @@ class SingleContest extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SectionName(sectionId:sectionId),
+                    SectionName(sectionId: sectionId),
                     SizedBox(height: 4),
                     InkWell(
                       onTap: () {
@@ -180,7 +180,7 @@ class SingleContest extends StatelessWidget {
                                   userImg: userImg,
                                   userName: userName,
                                   winnersNum: winnersNum,
-                                  id:id,
+                                  id: id,
                                 )));
                       },
                       child: Text(
@@ -304,7 +304,8 @@ class _SectionNameState extends State<SectionName> {
   }
 
   Future<void> _fetchSectionName() async {
-    final docRef = firestore.collection('contestSections').doc(widget.sectionId);
+    final docRef =
+        firestore.collection('contestSections').doc(widget.sectionId);
     final docSnapshot = await docRef.get();
 
     if (docSnapshot.exists) {
@@ -317,9 +318,9 @@ class _SectionNameState extends State<SectionName> {
 
   @override
   Widget build(BuildContext context) {
-  return Text(
-    _sectionName,
-    style: TextStyle(fontSize: 14, color: Colors.grey),
+    return Text(
+      _sectionName,
+      style: TextStyle(fontSize: 14, color: Colors.grey),
     );
   }
 }

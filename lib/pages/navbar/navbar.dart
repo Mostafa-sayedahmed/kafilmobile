@@ -7,6 +7,7 @@ import 'package:kafilmobile/pages/contests/contests.dart';
 import 'package:kafilmobile/pages/freelancers/freelancers.dart';
 import 'package:kafilmobile/pages/home/home.dart';
 import 'package:kafilmobile/pages/portofolio/portofolio.dart';
+import 'package:kafilmobile/pages/projects/projects.dart';
 import 'package:kafilmobile/pages/services/services.dart';
 
 class Navbar extends StatefulWidget {
@@ -19,11 +20,11 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
   int currentindex = 2;
   List<Widget> pages = [
-    Homepage(),
+    Portfolios(),
     contestPage(),
     Services(),
     Freelancers(),
-    Portfolios(),
+    Projcets(),
   ];
   @override
   Widget build(BuildContext context) {

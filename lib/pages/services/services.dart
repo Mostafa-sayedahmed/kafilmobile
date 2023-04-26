@@ -40,10 +40,11 @@ class _ServicesState extends State<Services> {
             });
     return Scaffold(
       backgroundColor: HexColor('#f1f2f2'),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        getdata();
-      }),
+      // floatingActionButton: FloatingActionButton(onPressed: () {
+      //   getdata();
+      // }),
       appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text('الخدمات'),
           centerTitle: true,
           backgroundColor: HexColor('#1dbf73')),
