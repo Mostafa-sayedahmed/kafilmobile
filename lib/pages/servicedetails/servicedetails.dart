@@ -155,47 +155,63 @@ class _ServicedetailsState extends State<Servicedetails> {
                           children: [
                             Text((widget.service!['addons']!.indexOf(i) + 1)
                                 .toString()),
-                            Column(
-                              children: [
-                                Text('تفاصيل الاضافة',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13)),
-                                Text(i['addonTitle']!.toString()),
-                              ],
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Text('تفاصيل الاضافة',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: 13)),
+                                  Text(
+                                    i['addonTitle']!.toString(),
+                                    overflow: TextOverflow.visible,
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            Column(
-                              children: [
-                                Text(
-                                  'السعر',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 13),
-                                ),
-                                Text(
-                                  i['addonPrice']!.toString() + ' \$',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                      color: HexColor('#1dbf73')),
-                                ),
-                              ],
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'السعر',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13),
+                                  ),
+                                  Text(
+                                    i['addonPrice']!.toString() + ' \$',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: HexColor('#1dbf73')),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            Column(
-                              children: [
-                                Text('مدة التوصيل',
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Text('مدة التوصيل',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: 13)),
+                                  Text(
+                                    i['addonDeliveryDuration']!.toString() +
+                                        " يوم اضافي ",
                                     style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13)),
-                                Text(i['addonDeliveryDuration']!.toString() +
-                                    " يوم اضافي "),
-                              ],
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(
                               width: 20,
