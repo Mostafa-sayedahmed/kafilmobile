@@ -49,7 +49,11 @@ class _singleprojectState extends State<singleproject> {
                       Row(
                         children: [
                           CircleAvatar(
-                            radius: 20,
+                            backgroundImage: NetworkImage(
+                                widget.data['img'] != null
+                                    ? widget.data['img']
+                                    : 'No img'),
+                            radius: 25,
                           ),
                           TextButton.icon(
                             onPressed: () {},

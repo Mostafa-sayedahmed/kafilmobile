@@ -50,50 +50,22 @@ class _FreelancersState extends State<Freelancers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-
-          backgroundColor: HexColor('#1dbf73'),
-          title: Row(
-            children: [
-              Icon(
-                Icons.people,
-                // color: Colors.black,
-              ),
-              SizedBox(width: 25),
-              Text(
-                "Freelancers",
-                // style:
-                // TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-              )
-            ],
-          ),
-          // actions: [
-          //   CircleAvatar(
-          //     child: IconButton(
-          //         onPressed: () {
-          //           Navigator.push(context,
-          //               MaterialPageRoute(builder: (context) => Homepage()));
-          //         },
-          //         icon: Icon(
-          //           Icons.home_filled,
-          //           color: Colors.black,
-          //         )),
-          //     backgroundColor: Colors.grey[100],
-          //   ),
-          //   SizedBox(width: 10),
-          //   CircleAvatar(
-          //       child: IconButton(
-          //           onPressed: () {},
-          //           icon: Icon(
-          //             Icons.more_horiz_outlined,
-          //             color: Colors.black,
-          //           )),
-          //       backgroundColor: Colors.grey[100]),
-          //   SizedBox(width: 10)
-          // ],
-          elevation: 0,
-        ),
+        // appBar: AppBar(
+        //   automaticallyImplyLeading: false,
+        //   backgroundColor: HexColor('#1dbf73'),
+        //   title: Row(
+        //     children: [
+        //       Icon(
+        //         Icons.people,
+        //       ),
+        //       SizedBox(width: 25),
+        //       Text(
+        //         "Freelancers",
+        //       )
+        //     ],
+        //   ),
+        //   elevation: 0,
+        // ),
         body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(

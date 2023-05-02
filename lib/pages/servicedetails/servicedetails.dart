@@ -135,6 +135,18 @@ class _ServicedetailsState extends State<Servicedetails> {
                                           });
                                         },
                                         icon: Icon(Icons.remove)),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    ElevatedButton(
+                                        style: ButtonStyle(backgroundColor:
+                                            MaterialStateProperty.resolveWith<
+                                                    Color?>(
+                                                (Set<MaterialState> states) {
+                                          return HexColor('#1dbf73');
+                                        })),
+                                        onPressed: () {},
+                                        child: Text('شراء'))
                                   ],
                                 )
                               ]))),

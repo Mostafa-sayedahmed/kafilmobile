@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kafilmobile/pages/home/home.dart';
+import 'package:kafilmobile/pages/login/login.dart';
 import '../register/register.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -91,7 +92,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                                       'reset password link sent,please check your E-mail.!'),
                                 ),
                               ),
-                              Get.to(Homepage())
+                              Get.to(LoginPage())
                             })
                         .catchError((error) => {
                               print(error.message),

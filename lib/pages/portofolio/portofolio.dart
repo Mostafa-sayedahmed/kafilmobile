@@ -219,11 +219,11 @@ class _PortfoliosState extends State<Portfolios> {
         }
 
         return Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: Text("الأعمال"),
-            backgroundColor: HexColor('#1dbf73'),
-          ),
+          // appBar: AppBar(
+          //   automaticallyImplyLeading: false,
+          //   title: Text("الأعمال"),
+          //   backgroundColor: HexColor('#1dbf73'),
+          // ),
           body: ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (BuildContext context, int index) {

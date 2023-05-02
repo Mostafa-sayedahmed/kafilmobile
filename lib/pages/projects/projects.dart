@@ -35,11 +35,11 @@ class _ProjcetsState extends State<Projcets> {
     final Stream<QuerySnapshot> projectData =
         FirebaseFirestore.instance.collection('projects').snapshots();
     return Scaffold(
-      appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text("المشاريع"),
-          centerTitle: true,
-          backgroundColor: HexColor('#1dbf73')),
+      // appBar: AppBar(
+      //     automaticallyImplyLeading: false,
+      //     title: Text("المشاريع"),
+      //     centerTitle: true,
+      //     backgroundColor: HexColor('#1dbf73')),
       body: StreamBuilder<QuerySnapshot>(
         stream: projectData,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -84,17 +84,24 @@ class _ProjcetsState extends State<Projcets> {
                       //       'https://firebasestorage.googleapis.com/v0/b/kafiil-12b6c.appspot.com/o/images%2Fuserimage.png?alt=media&token=e88880bd-c2f9-4562-9a72-5628441ad27a'),
                       //   radius: 25,
                       // ),
-                      title: Text(
-                        data['title'] != null ? data['title'] : 'No Title',
-                        maxLines: 1,
-                        overflow: TextOverflow.fade,
+                      title: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          data['title'] != null ? data['title'] : 'No Title',
+                          maxLines: 1,
+                          overflow: TextOverflow.fade,
+                        ),
                       ),
-                      subtitle: Text(
-                        data['discription'] != null
-                            ? data['discription']
-                            : 'No discption.',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+
+                      subtitle: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          data['discription'] != null
+                              ? data['discription']
+                              : 'No discption.',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       trailing: Text(
                         data['budget'] != null ? data['budget'] : "no budget",
@@ -110,8 +117,3 @@ class _ProjcetsState extends State<Projcets> {
     );
   }
 }
-
-
-
-// ===========================================
-

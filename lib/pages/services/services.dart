@@ -43,11 +43,11 @@ class _ServicesState extends State<Services> {
       // floatingActionButton: FloatingActionButton(onPressed: () {
       //   getdata();
       // }),
-      appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text('الخدمات'),
-          centerTitle: true,
-          backgroundColor: HexColor('#1dbf73')),
+      // appBar: AppBar(
+      //     automaticallyImplyLeading: false,
+      //     title: Text('الخدمات'),
+      //     centerTitle: true,
+      //     backgroundColor: HexColor('#1dbf73')),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: ListView(

@@ -42,40 +42,43 @@ class _contestPageState extends State<contestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text('المسابقات'),
-          centerTitle: true,
-          backgroundColor: HexColor('#1dbf73')),
+      // appBar: AppBar(
+      //     automaticallyImplyLeading: false,
+      //     title: Text('المسابقات'),
+      //     centerTitle: true,
+      //     backgroundColor: HexColor('#1dbf73')),
       body: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Container(
-              child: ListView.builder(
-                  itemBuilder: (BuildContext context, int index) {
-                    print(contestEle[index]);
-                    return SingleContest(
-                      Posts: contestEle[index]["Posts"],
-                      Views: contestEle[index]["Views"],
-                      accepted: contestEle[index]["accepted"],
-                      comment: contestEle[index]["comment"],
-                      completed: contestEle[index]["completed"],
-                      conditions: contestEle[index]["conditions"],
-                      contestDuration: contestEle[index]["contestDuration"],
-                      contestants: contestEle[index]["contestants"],
-                      deliveryDuration: contestEle[index]["deliveryDuration"],
-                      description: contestEle[index]["description"],
-                      firstWinner: contestEle[index]["firstWinner"],
-                      sectionId: contestEle[index]["sectionId"],
-                      skills: contestEle[index]["skills"],
-                      title: contestEle[index]["title"],
-                      userId: contestEle[index]["userId"],
-                      userImg: contestEle[index]["userImg"],
-                      userName: contestEle[index]["userName"],
-                      winnersNum: contestEle[index]["winnersNum"],
-                      id: contestEle[index]["id"],
-                    );
-                  },
-                  itemCount: contestEle.length - 1))),
+              child: contestEle.length == 0
+                  ? Text('no data')
+                  : ListView.builder(
+                      itemBuilder: (BuildContext context, int index) {
+                        print(contestEle[index]);
+                        return SingleContest(
+                          Posts: contestEle[index]["Posts"],
+                          Views: contestEle[index]["Views"],
+                          accepted: contestEle[index]["accepted"],
+                          comment: contestEle[index]["comment"],
+                          completed: contestEle[index]["completed"],
+                          conditions: contestEle[index]["conditions"],
+                          contestDuration: contestEle[index]["contestDuration"],
+                          contestants: contestEle[index]["contestants"],
+                          deliveryDuration: contestEle[index]
+                              ["deliveryDuration"],
+                          description: contestEle[index]["description"],
+                          firstWinner: contestEle[index]["firstWinner"],
+                          sectionId: contestEle[index]["sectionId"],
+                          skills: contestEle[index]["skills"],
+                          title: contestEle[index]["title"],
+                          userId: contestEle[index]["userId"],
+                          userImg: contestEle[index]["userImg"],
+                          userName: contestEle[index]["userName"],
+                          winnersNum: contestEle[index]["winnersNum"],
+                          id: contestEle[index]["id"],
+                        );
+                      },
+                      itemCount: contestEle.length - 1))),
     );
   }
 }
@@ -210,7 +213,7 @@ class SingleContest extends StatelessWidget {
                     ],
                   ),
                 ),
-                completed!
+                completed
                     ? Container(
                         padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
