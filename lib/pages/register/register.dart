@@ -29,7 +29,8 @@ class _RegisterpageState extends State<Registerpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
+        title: Text('تسجيل'),
+        centerTitle: true,
         backgroundColor: HexColor("#00bf8b"),
       ),
       body: SingleChildScrollView(
@@ -49,7 +50,7 @@ class _RegisterpageState extends State<Registerpage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Please,Fill your data here to register!',
+                      'من فضلك , ادخل بياناتك هنا لتسجيل حساب جديد!!',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 16),
@@ -66,13 +67,13 @@ class _RegisterpageState extends State<Registerpage> {
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   icon: Icon(Icons.person_outlined),
-                                  labelText: 'Name',
-                                  hintText: 'Enter your name'),
+                                  labelText: 'الاسم بالكامل',
+                                  hintText: 'ادخل الاسم بالكامل هنا'),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'please Enter your name';
+                                  return 'من فضلك قم بإدخال الاسم هنا';
                                 } else if (value.length < 3) {
-                                  return 'Name too short';
+                                  return 'من فضلك تأكد من كتابة الاسم كاملا';
                                 }
                               },
                             ),
@@ -85,18 +86,18 @@ class _RegisterpageState extends State<Registerpage> {
                                 decoration: InputDecoration(
                                     icon: Icon(Icons.email_outlined),
                                     border: OutlineInputBorder(),
-                                    labelText: 'Email',
-                                    hintText: 'Enter your email address'),
+                                    labelText: 'البريد الالكتروني',
+                                    hintText: 'ادخل بريدك الالكتروني'),
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter your email address';
+                                    return 'من فضلك ادخل البريد الالكتروني';
                                   }
                                   bool vlidemail = RegExp(
                                           r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")
                                       .hasMatch(value);
 
                                   if (!vlidemail) {
-                                    return 'please enter a vlid email address';
+                                    return 'البريد الالكتروني خاطئ';
                                   }
                                 }),
                           ),
@@ -106,7 +107,7 @@ class _RegisterpageState extends State<Registerpage> {
                               key: _passwordfield,
                               decoration: InputDecoration(
                                   suffixIcon: IconButton(
-                                    tooltip: 'show password',
+                                    tooltip: 'اظهار كلمة السر',
                                     onPressed: () {
                                       setState(() {
                                         _isobcured = !_isobcured;
@@ -118,21 +119,21 @@ class _RegisterpageState extends State<Registerpage> {
                                   ),
                                   icon: Icon(Icons.lock_outlined),
                                   border: OutlineInputBorder(),
-                                  labelText: 'Password',
-                                  hintText: 'Enter your Password'),
+                                  labelText: 'كلمة السر',
+                                  hintText: 'ادخل كلمة السر'),
                               obscureText: _isobcured,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'please enter a password';
+                                  return 'من فضلك ادخل كلمة السر';
                                 } else if (value.length < 6) {
-                                  return 'too short password';
+                                  return 'كلمة السر قصيرة';
                                 }
                                 bool vlidpassword = RegExp(
                                         r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$")
                                     .hasMatch(value);
 
                                 if (!vlidpassword) {
-                                  return 'please enter a vlid password that contains at least one number ,one uppercase letter, one lowercase letter and one special character!';
+                                  return 'من فضلك ادخل كلمة سر مناسبة ,يجب ان تحتوي علي الاقل علي حرف واحد ورقم واحد و علامة مميزة!';
                                 }
                               },
                             ),
@@ -142,7 +143,7 @@ class _RegisterpageState extends State<Registerpage> {
                             child: TextFormField(
                               decoration: InputDecoration(
                                   suffixIcon: IconButton(
-                                    tooltip: 'show password',
+                                    tooltip: 'اظهار كلمة السر',
                                     onPressed: () {
                                       setState(() {
                                         _isobcured = !_isobcured;
@@ -154,17 +155,15 @@ class _RegisterpageState extends State<Registerpage> {
                                   ),
                                   icon: Icon(Icons.lock_outlined),
                                   border: OutlineInputBorder(),
-                                  labelText: 'Confirm Password',
-                                  hintText: 'Enter your Password once again!'),
+                                  labelText: 'تأكيد كلمة السر',
+                                  hintText: 'ادخل كلمة السر مرة اخري!'),
                               obscureText: _isobcured,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'please repeat your Password';
-                                } else if (value.length < 6) {
-                                  return 'too short password';
+                                  return 'من فضلك قم بتأكيد كلمة السر';
                                 } else if (value !=
                                     _passwordfield.currentState?.value) {
-                                  return 'Passwords dose not match!';
+                                  return 'كلمة السر غير متطابقة!';
                                 }
                               },
                             ),
@@ -265,7 +264,7 @@ class _RegisterpageState extends State<Registerpage> {
                                 minimumSize: Size(50, 30),
                                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 alignment: Alignment.centerLeft),
-                            child: Text('Register'),
+                            child: Text('تسجيل'),
                           ),
                           /////////
                           SizedBox(
@@ -276,7 +275,7 @@ class _RegisterpageState extends State<Registerpage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Have an account.?..",
+                                "لديك حساب بالفعل.؟",
                                 overflow: TextOverflow.ellipsis,
                               ),
                               TextButton(
@@ -289,7 +288,7 @@ class _RegisterpageState extends State<Registerpage> {
                                   style: TextButton.styleFrom(
                                       padding: EdgeInsets.zero),
                                   child: Text(
-                                    'Login.!',
+                                    'تسجيل الدخول',
                                     overflow: TextOverflow.ellipsis,
                                   )),
                             ],

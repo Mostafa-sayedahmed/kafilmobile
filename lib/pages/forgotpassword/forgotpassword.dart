@@ -28,7 +28,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('login'),
+        title: Text('استعادة كلمة السر'),
         centerTitle: true,
         backgroundColor: HexColor("#009f8b"),
       ),
@@ -55,17 +55,17 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                   decoration: InputDecoration(
                       icon: Icon(Icons.email_outlined),
                       border: OutlineInputBorder(),
-                      labelText: 'Email',
-                      hintText: 'Enter your email address'),
+                      labelText: 'البريد الالكتروني',
+                      hintText: 'ادخل البريد الالكتروني'),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'please enter your email address';
+                      return 'من فضلك ادخل البريد الالكتروني';
                     }
                     bool vlidemail = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")
                         .hasMatch(value);
 
                     if (!vlidemail) {
-                      return 'please enter a vlid email address';
+                      return 'من فضلك ادخل بريد الكتروني صالح';
                     }
                   }),
               SizedBox(
@@ -112,7 +112,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                     minimumSize: Size(50, 30),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     alignment: Alignment.centerLeft),
-                child: Text('Reset password'),
+                child: Text('استعادة كلمة السر'),
               ),
               /////////
               SizedBox(
@@ -123,7 +123,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Don't have an account.?..",
+                    "ليس لديك حساب.؟!",
                     overflow: TextOverflow.ellipsis,
                   ),
                   TextButton(
@@ -135,7 +135,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                       },
                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
                       child: Text(
-                        'Rigester',
+                        'تسجيل',
                         overflow: TextOverflow.ellipsis,
                       )),
                 ],
@@ -145,7 +145,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
               ),
               TextButton(
                   onPressed: () {},
-                  child: Text('Rememberd the password?,Back to login..!')),
+                  child: Text('هل تذكرت كلمة السر.؟, العودة لتسجيل الدخول!')),
             ]),
           ),
         ),

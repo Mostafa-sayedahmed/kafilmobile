@@ -204,7 +204,7 @@ class FREELANCER extends StatelessWidget {
               children: <Widget>[
                 const SizedBox(width: 8),
                 TextButton(
-                  child: const Text('SEE MORE DETAILS !'),
+                  child: const Text('المزيد من التفاصيل !'),
                   onPressed: () {
                     Navigator.push(
                         context,

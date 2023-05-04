@@ -24,7 +24,7 @@ class SingleFreelancer extends StatelessWidget {
             children: [
               SizedBox(width: 25),
               Text(
-                'Single Freelancer',
+                'تفاصيل عن المستقل',
               )
             ],
           ),
@@ -74,13 +74,13 @@ class FREELANCER extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 const SizedBox(width: 8),
-                TextButton(
-                  child: const Text('  BACK TO OTHER FREELANCERS !'),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Freelancers()));
-                  },
-                ),
+                // TextButton(
+                //   child: const Text('  BACK TO OTHER FREELANCERS !'),
+                //   onPressed: () {
+                //     Navigator.push(context,
+                //         MaterialPageRoute(builder: (context) => Freelancers()));
+                //   },
+                // ),
                 const SizedBox(width: 8),
               ],
             ),

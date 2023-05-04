@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('login'),
+        title: Text('تسجيل الدخول'),
         centerTitle: true,
         backgroundColor: HexColor("#009f8b"),
       ),
@@ -58,17 +58,17 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                       icon: Icon(Icons.email_outlined),
                       border: OutlineInputBorder(),
-                      labelText: 'Email',
-                      hintText: 'Enter your email address'),
+                      labelText: 'البريد الالكتروني',
+                      hintText: 'ادخل البريد الالكتروني'),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'please enter your email address';
+                      return 'من فضلك ادخل البريد الالكتروني';
                     }
                     bool vlidemail = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")
                         .hasMatch(value);
 
                     if (!vlidemail) {
-                      return 'please enter a vlid email address';
+                      return 'البريد الالكتروني خاطئ';
                     }
                   }),
               SizedBox(
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                 key: _passwordfield,
                 decoration: InputDecoration(
                     suffixIcon: IconButton(
-                      tooltip: 'show password',
+                      tooltip: 'اظهار كلمة السر',
                       onPressed: () {
                         setState(() {
                           _isobcured = !_isobcured;
@@ -90,14 +90,12 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     icon: Icon(Icons.lock_outlined),
                     border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter your Password'),
+                    labelText: 'كلمة السر',
+                    hintText: 'ادخل كلمة السر'),
                 obscureText: _isobcured,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'please enter a password';
-                  } else if (value.length < 6) {
-                    return 'too short password';
+                    return 'من فضلك ادخل كلمة سر';
                   }
                 },
               ),
@@ -135,6 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                         //     ?.sendEmailVerification();
                         auth.signOut();
                       } else if (user.emailVerified) {
+                        _formfield.currentState!.reset();
                         const snackBar = SnackBar(
                           backgroundColor: Colors.greenAccent,
                           content: Text(
@@ -173,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                     minimumSize: Size(50, 30),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     alignment: Alignment.centerLeft),
-                child: Text('Login'),
+                child: Text('تسجيل الدخول'),
               ),
               /////////
               SizedBox(
@@ -238,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                       icon: Icon(FontAwesomeIcons.twitter),
                       label: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Text('sign in with twitter'),
+                        child: Text('سجل دخول عن طريق تويتر'),
                       )),
                   SizedBox(
                     width: 20,
@@ -286,7 +285,7 @@ class _LoginPageState extends State<LoginPage> {
                       icon: Icon(FontAwesomeIcons.google),
                       label: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Text('sign in with Google'),
+                        child: Text('سجل دخول عن طريق جوجل'),
                       )),
                 ],
               ),
@@ -298,7 +297,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Don't have an account.?..",
+                    "ليس لديك حساب .؟!",
                     overflow: TextOverflow.ellipsis,
                   ),
                   TextButton(
@@ -310,7 +309,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
                       child: Text(
-                        'Rigester',
+                        'حساب جديد',
                         overflow: TextOverflow.ellipsis,
                       )),
                 ],
@@ -325,7 +324,7 @@ class _LoginPageState extends State<LoginPage> {
                         MaterialPageRoute(
                             builder: (context) => Forgotpassword()));
                   },
-                  child: Text('Forgot password?')),
+                  child: Text('نسيت كلمة السر؟')),
             ]),
           ),
         ),

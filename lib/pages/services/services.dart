@@ -64,7 +64,9 @@ class _ServicesState extends State<Services> {
                     }
 
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Text("Loading");
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
                     }
                     if (snapshot.data!.docs.length == 0) {
                       return Text('no data available');
@@ -74,7 +76,6 @@ class _ServicesState extends State<Services> {
                             .map((DocumentSnapshot document) {
                           Map<String, dynamic> data =
                               document.data()! as Map<String, dynamic>;
-
                           return (ServiceCard(
                             uid: document.id,
                             title: data['title'],
@@ -150,6 +151,8 @@ class ServiceCard extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: InkWell(
+                hoverColor: Colors.white,
+                focusColor: Colors.white,
                 onTap: () {
                   Navigator.push(
                       context,
@@ -160,6 +163,7 @@ class ServiceCard extends StatelessWidget {
                 },
                 child: Container(
                   decoration: BoxDecoration(
+                    color: HexColor('#f1f2f2'),
                     border: Border.all(color: Colors.black38),
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
@@ -275,7 +279,7 @@ class ServiceCard extends StatelessWidget {
               ),
             );
           } else {
-            return CircularProgressIndicator();
+            return Text('');
           }
         });
   }

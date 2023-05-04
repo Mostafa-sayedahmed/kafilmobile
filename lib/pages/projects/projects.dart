@@ -89,7 +89,7 @@ class _ProjcetsState extends State<Projcets> {
                         child: Text(
                           data['title'] != null ? data['title'] : 'No Title',
                           maxLines: 1,
-                          overflow: TextOverflow.fade,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
 

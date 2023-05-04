@@ -8,6 +8,7 @@ import 'package:kafilmobile/pages/contests/contests.dart';
 import 'package:kafilmobile/pages/freelancers/freelancers.dart';
 import 'package:kafilmobile/pages/home/home.dart';
 import 'package:kafilmobile/pages/portofolio/portofolio.dart';
+import 'package:kafilmobile/pages/profile/profile.dart';
 import 'package:kafilmobile/pages/projects/projects.dart';
 import 'package:kafilmobile/pages/services/services.dart';
 
@@ -85,24 +86,30 @@ class _NavbarState extends State<Navbar> {
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(userimg!),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => (Profile()))));
+                },
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(userimg!),
+                ),
               ),
             )
           ],
           automaticallyImplyLeading: false,
-          leading: IconButton(
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                print("signed out");
-                Navigator.pop(context);
-                const snackBar = SnackBar(
-                  backgroundColor: Colors.redAccent,
-                  content: Text('User loggedout.! '),
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
-              icon: Icon(Icons.logout)),
+          // leading: IconButton(
+          //     onPressed: () async {
+          //       await FirebaseAuth.instance.signOut();
+          //       print("signed out");
+          //       Navigator.pop(context);
+          //       const snackBar = SnackBar(
+          //         backgroundColor: Colors.redAccent,
+          //         content: Text('User loggedout.! '),
+          //       );
+          //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          //     },
+          //     icon: Icon(Icons.logout)),
         ),
         bottomNavigationBar: BottomNavigationBar(
           fixedColor: HexColor('#1dbf73'),
